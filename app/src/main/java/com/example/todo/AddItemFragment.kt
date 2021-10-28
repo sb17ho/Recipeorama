@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.todo.databinding.FragmentAddItemBinding
 
 class AddItemFragment : Fragment() {
@@ -25,6 +27,10 @@ class AddItemFragment : Fragment() {
         // Inflate the layout for this fragment
         addFragBinding =
             FragmentAddItemBinding.inflate(inflater, container, false)
+
+        addFragBinding.doneButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         return addFragBinding.root
     }

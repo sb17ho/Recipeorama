@@ -2,4 +2,17 @@
     <string name="app_name">ToDo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_item">Add Item</string>
+    <string name="to_add_item">To Add Item</string>
+    <string name="task_name">Task Name</string>
+    <string name="none">None</string>
+    <string name="priority">Priority</string>
+    <string name="done">Done</string>
+
+    <string-array name="priority_drop_down">
+        <item>None</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
 </resources>

@@ -11,7 +11,7 @@
         android:label="fragment_list_items"
         tools:layout="@layout/fragment_list_items" >
         <action
-            android:id="@+id/action_listItems_to_addItemFragment"
+            android:id="@+id/navigate_to_add_Items"
             app:destination="@id/addItemFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
@@ -22,7 +22,7 @@
         android:label="fragment_add_item"
         tools:layout="@layout/fragment_add_item" >
         <action
-            android:id="@+id/action_addItemFragment_to_listItems"
+            android:id="@+id/navigate_to_ListItems"
             app:destination="@id/listItems"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />

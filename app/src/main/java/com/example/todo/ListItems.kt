@@ -5,16 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.todo.databinding.FragmentListItemsBinding
 
 class ListItems : Fragment() {
     private lateinit var listItemsBinding: FragmentListItemsBinding
+    private val viewModel: TodoViewModel by lazy { ViewModelProvider(this)[TodoViewModel::class.java] }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         listItemsBinding = FragmentListItemsBinding.inflate(inflater, container, false)
 
         listItemsBinding.addFab.setOnClickListener {

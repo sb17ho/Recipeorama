@@ -1,8 +1,36 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dropdown_text"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="14dp"
-    android:text="@string/none"
-    android:textColor="@color/black"
-    android:textStyle="bold" />
+    android:layout_height="wrap_content"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="14dp"
+        android:weightSum="100"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/dropdown_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            android:layout_weight="96"
+            android:text="@string/none"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="16dp"
+            android:backgroundTint="@color/red"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+

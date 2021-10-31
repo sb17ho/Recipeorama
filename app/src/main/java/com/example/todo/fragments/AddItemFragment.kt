@@ -1,6 +1,7 @@
-package com.example.todo
+package com.example.todo.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,9 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.todo.R
 import com.example.todo.databinding.FragmentAddItemBinding
+import com.example.todo.viewModel.TodoViewModel
 
 class AddItemFragment : Fragment() {
     private lateinit var addFragBinding: FragmentAddItemBinding
@@ -30,8 +33,16 @@ class AddItemFragment : Fragment() {
         addFragBinding =
             FragmentAddItemBinding.inflate(inflater, container, false)
 
-        addFragBinding.doneButton.setOnClickListener {
-            findNavController().popBackStack()
+        addFragBinding.apply {
+
+            autoComplete.setOnDismissListener {
+                viewModel.dropDownListener(autoComplete.text.toString(), autoComplete)
+                textInputLayout2.boxStrokeColor = autoComplete.currentTextColor
+            }
+
+            doneButton.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
 
         return addFragBinding.root

@@ -1,4 +1,4 @@
-package com.example.todo
+package com.example.todo.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.example.todo.R
+import com.example.todo.viewModel.TodoViewModel
 import com.example.todo.databinding.FragmentListItemsBinding
 
 class ListItems : Fragment() {

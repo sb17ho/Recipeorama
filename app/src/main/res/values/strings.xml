@@ -8,6 +8,8 @@
     <string name="none">None</string>
     <string name="priority">Priority</string>
     <string name="done">Done</string>
+    <string name="description_add">Description</string>
+    <string name="task_item_placeHolder">Task Item</string>
 
     <string-array name="priority_drop_down">
         <item>None</item>

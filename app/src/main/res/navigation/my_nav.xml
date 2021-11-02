@@ -7,14 +7,12 @@
 
     <fragment
         android:id="@+id/listItems"
-        android:name="com.example.todo.fragments.ListItems"
+        android:name="com.example.todo.fragments.ListItemsFragment"
         android:label="fragment_list_items"
         tools:layout="@layout/fragment_list_items" >
         <action
             android:id="@+id/navigate_to_add_Items"
-            app:destination="@id/addItemFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:destination="@id/addItemFragment" />
         <action
             android:id="@+id/action_listItems_to_updateFragment"
             app:destination="@id/updateFragment" />
@@ -26,17 +24,23 @@
         tools:layout="@layout/fragment_add_item" >
         <action
             android:id="@+id/navigate_to_ListItems"
-            app:destination="@id/listItems"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:destination="@id/listItems" />
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
-        android:name="com.example.todo.UpdateFragment"
+        android:name="com.example.todo.fragments.UpdateFragment"
         android:label="fragment_update"
         tools:layout="@layout/fragment_update" >
         <action
             android:id="@+id/action_updateFragment_to_listItems"
             app:destination="@id/listItems" />
+        <argument
+            android:name="updateCurrentItem"
+            app:argType="com.example.todo.data.Task" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.todo.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

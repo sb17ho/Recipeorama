@@ -15,7 +15,8 @@ interface TaskDao {
     @Query("DELETE FROM todo_task")
     suspend fun deleteAllTask()
 
-    /*TODO: Handle Update*/
+    @Update
+    suspend fun updateTask(task: Task)
 
     @Query("SELECT * FROM todo_task")
     fun readAllTask(): LiveData<List<Task>>

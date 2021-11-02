@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.todo.R
 import com.example.todo.data.Task
 import com.example.todo.data.TaskDatabase
+import com.example.todo.priorityClasses.Priority
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -26,6 +27,12 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun updateTask(task: Task) {
+        viewModelScope.launch(Dispatchers.IO) {
+            taskDatabase.taskDao().updateTask(task)
+        }
+    }
+
     fun deleteTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
             taskDatabase.taskDao()
@@ -36,6 +43,19 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     fun deleteAllTask() {
         viewModelScope.launch(Dispatchers.IO) {
             taskDatabase.taskDao().deleteAllTask()
+        }
+    }
+
+    fun checkIfNotEmpty(title: String, priority: String): Boolean {
+        return title.isEmpty() && priority.isEmpty()
+    }
+
+    fun parsePriority(priority: String): Priority {
+        return when (priority.lowercase()) {
+            "low" -> Priority.LOW
+            "medium" -> Priority.MEDIUM
+            "high" -> Priority.HIGH
+            else -> Priority.NONE
         }
     }
 

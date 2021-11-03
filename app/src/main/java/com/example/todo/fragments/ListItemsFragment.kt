@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.adapter.TaskCardAdapter
 import com.example.todo.databinding.FragmentListItemsBinding
@@ -26,9 +28,29 @@ class ListItemsFragment : Fragment() {
         setHasOptionsMenu(true) //Called to make menu item
 
         apply_binding_listeners()
+        applySwipeGesture()
 
         // Inflate the layout for this fragment
         return listItemsBinding.root
+    }
+
+    //Swipe to delete
+    private fun applySwipeGesture() {
+        ItemTouchHelper(object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ) = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                when (direction) {
+                    ItemTouchHelper.LEFT -> viewModel.deleteTask(recyclerAdapter.todoList[viewHolder.adapterPosition])
+                    ItemTouchHelper.RIGHT -> viewModel.deleteTask(recyclerAdapter.todoList[viewHolder.adapterPosition])
+                }
+            }
+        }).attachToRecyclerView(listItemsBinding.listItem)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

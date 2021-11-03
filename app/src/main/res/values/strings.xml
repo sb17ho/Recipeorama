@@ -10,6 +10,10 @@
     <string name="done">Done</string>
     <string name="description_add">Description</string>
     <string name="task_item_placeHolder">Task Item</string>
+    <string name="no_data_image">no data image</string>
+    <string name="delete_all">Delete All</string>
+    <string name="home_icon">Home</string>
+    <string name="setting_icon">Setting</string>
 
     <string-array name="priority_drop_down">
         <item>None</item>

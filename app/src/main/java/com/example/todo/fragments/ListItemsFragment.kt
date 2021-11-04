@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.adapter.TaskCardAdapter
+import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentListItemsBinding
 import com.example.todo.viewModel.TodoViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class ListItemsFragment : Fragment() {
     private lateinit var listItemsBinding: FragmentListItemsBinding
@@ -46,8 +48,28 @@ class ListItemsFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 when (direction) {
-                    ItemTouchHelper.LEFT -> viewModel.deleteTask(recyclerAdapter.todoList[viewHolder.adapterPosition])
-                    ItemTouchHelper.RIGHT -> viewModel.deleteTask(recyclerAdapter.todoList[viewHolder.adapterPosition])
+                    ItemTouchHelper.LEFT -> {
+                        val removedTask: Task = recyclerAdapter.todoList[viewHolder.adapterPosition]
+                        viewModel.deleteTask(recyclerAdapter.todoList[viewHolder.adapterPosition])
+                        Snackbar.make(
+                            requireActivity().findViewById(android.R.id.content),
+                            "${removedTask.title} Deleted",
+                            Snackbar.LENGTH_LONG
+                        ).setAction("Undo") {
+                            viewModel.addTask(removedTask)
+                        }.show()
+                    }
+                    ItemTouchHelper.RIGHT -> {
+                        val removedTask: Task = recyclerAdapter.todoList[viewHolder.adapterPosition]
+                        viewModel.deleteTask(recyclerAdapter.todoList[viewHolder.adapterPosition])
+                        Snackbar.make(
+                            requireActivity().findViewById(android.R.id.content),
+                            "${removedTask.title} Deleted",
+                            Snackbar.LENGTH_LONG
+                        ).setAction("Undo") {
+                            viewModel.addTask(removedTask)
+                        }.show()
+                    }
                 }
             }
         }).attachToRecyclerView(listItemsBinding.listItem)

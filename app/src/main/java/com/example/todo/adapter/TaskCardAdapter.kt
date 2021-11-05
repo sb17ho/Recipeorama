@@ -1,6 +1,9 @@
 package com.example.todo.adapter
 
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
@@ -31,9 +34,27 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
             todoList[position].title.first().uppercase()
         }
         holder.binding.taskDescriptionInfo.text = todoList[position].description
-        holder.binding.listCardRow.setOnClickListener {
+
+        holder.binding.listCardRow.setOnLongClickListener {
             holder.binding.root.findNavController()
                 .navigate(ListItemsFragmentDirections.actionListItemsToUpdateFragment(todoList[position]))
+            true
+        }
+
+        holder.binding.listCardRow.setOnClickListener {
+            if (holder.binding.taskDescriptionInfo.visibility == View.GONE) {
+                TransitionManager.beginDelayedTransition(
+                    holder.binding.listCardRow,
+                    AutoTransition()
+                )
+                holder.binding.taskDescriptionInfo.visibility = View.VISIBLE
+            } else {
+                TransitionManager.beginDelayedTransition(
+                    holder.binding.listCardRow,
+                    AutoTransition()
+                )
+                holder.binding.taskDescriptionInfo.visibility = View.GONE
+            }
         }
 
         when (todoList[position].priority) {

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -34,6 +35,16 @@ class AddItemFragment : Fragment() {
             FragmentAddItemBinding.inflate(inflater, container, false)
 
         addFragBinding.apply {
+            taskNameEditText.doOnTextChanged { text, _, _, _ ->
+                if (!text.isNullOrBlank()) {
+                    inputTextLayout1.error = null
+                }
+            }
+
+            priorityView.doOnTextChanged { text, _, _, _ ->
+                if (!text.isNullOrBlank())
+                    textInputLayout2.error = null
+            }
 
             priorityView.setOnDismissListener {
                 viewModel.dropDownListener(priorityView.text.toString(), priorityView)
@@ -64,7 +75,10 @@ class AddItemFragment : Fragment() {
             findNavController().popBackStack()
             Toast.makeText(requireContext(), "Successfully Added", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(requireContext(), "Please Fill out all Fields", Toast.LENGTH_SHORT).show()
+            addFragBinding.apply {
+                inputTextLayout1.error = "Text Field Required"
+                textInputLayout2.error = "Text Field Required"
+            }
         }
     }
 }

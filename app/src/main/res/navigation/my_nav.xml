@@ -43,4 +43,14 @@
         android:name="com.example.todo.fragments.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/archiveFragment"
+        android:name="com.example.todo.ArchiveFragment"
+        android:label="fragment_archive"
+        tools:layout="@layout/fragment_archive" />
+    <fragment
+        android:id="@+id/trashFragment"
+        android:name="com.example.todo.TrashFragment"
+        android:label="fragment_trash"
+        tools:layout="@layout/fragment_trash" />
 </navigation>

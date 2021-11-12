@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.data.Task
@@ -90,7 +91,8 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
     override fun getItemCount() = todoList.size
 
     fun setTaskData(task: List<Task>) {
+        val diffUtil = ItemsListDiffUtil(todoList, task)
         this.todoList = task
-        notifyDataSetChanged()
+        DiffUtil.calculateDiff(diffUtil).dispatchUpdatesTo(this)
     }
 }

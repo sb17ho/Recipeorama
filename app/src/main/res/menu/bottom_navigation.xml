@@ -5,10 +5,20 @@
         android:id="@+id/listItems"
         android:icon="@drawable/ic_home"
         android:title="@string/home_icon"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_setting"
         android:title="@string/setting_icon"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+
+    <item
+        android:icon="@drawable/ic_baseline_archive_24"
+        android:title="@string/archive"
+        app:showAsAction="always" />
+
+    <item
+        android:icon="@drawable/ic_baseline_delete"
+        android:title="@string/trash"
+        app:showAsAction="always" />
 </menu>

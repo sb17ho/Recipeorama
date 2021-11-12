@@ -14,6 +14,8 @@
     <string name="delete_all">Delete All</string>
     <string name="home_icon">Home</string>
     <string name="setting_icon">Setting</string>
+    <string name="archive">Archive</string>
+    <string name="trash">Trash</string>
 
     <string-array name="priority_drop_down">
         <item>None</item>

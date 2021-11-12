@@ -57,7 +57,7 @@ class ListItemsFragment : Fragment() {
                             Snackbar.LENGTH_LONG
                         ).setAction("Undo") {
                             viewModel.addTask(removedTask)
-                        }.show()
+                        }.setAnchorView(requireActivity().findViewById(R.id.bottom_nav_bar)).show()
                     }
                     ItemTouchHelper.RIGHT -> {
                         val removedTask: Task = recyclerAdapter.todoList[viewHolder.adapterPosition]
@@ -68,7 +68,7 @@ class ListItemsFragment : Fragment() {
                             Snackbar.LENGTH_LONG
                         ).setAction("Undo") {
                             viewModel.addTask(removedTask)
-                        }.show()
+                        }.setAnchorView(requireView().findViewById(R.id.bottom_nav_bar)).show()
                     }
                 }
             }

@@ -85,14 +85,12 @@ class UpdateFragment : Fragment() {
         val priority = updateFragment.priorityView.text.toString()
 
         if (!viewModel.checkIfNotEmpty(title, priority)) {
-            viewModel.updateTask(
-                Task(
-                    id = args.updateCurrentItem.id,
-                    title = title,
-                    description = description,
-                    priority = viewModel.parsePriority(priority)
-                )
-            )
+            val task: Task = args.updateCurrentItem
+            task.title = title
+            task.description = description
+            task.priority = viewModel.parsePriority(priority)
+
+            viewModel.updateTask(task)
             findNavController().popBackStack()
             Toast.makeText(requireContext(), "Successfully Updated", Toast.LENGTH_SHORT).show()
         } else {

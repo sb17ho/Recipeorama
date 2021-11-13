@@ -14,6 +14,7 @@ import com.example.todo.data.Task
 import com.example.todo.databinding.TaskCardBinding
 import com.example.todo.fragments.ListItemsFragmentDirections
 import com.example.todo.priorityClasses.Priority
+import java.text.DateFormatSymbols
 
 class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>() {
 
@@ -42,6 +43,14 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
             true
         }
 
+        val (dd, mm, yy) = Triple(
+            todoList[position].dd,
+            todoList[position].mm,
+            todoList[position].yy
+        )
+        val dateFormat: String = "Created on ${dd} ${DateFormatSymbols().months[mm]}, ${yy}"
+        holder.binding.taskDateInfo.text = dateFormat.toString()
+
         holder.binding.listCardRow.setOnClickListener {
             if (holder.binding.taskDescriptionInfo.visibility == View.GONE) {
                 TransitionManager.beginDelayedTransition(
@@ -49,12 +58,14 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
                     AutoTransition()
                 )
                 holder.binding.taskDescriptionInfo.visibility = View.VISIBLE
+                holder.binding.taskDateInfo.visibility = View.VISIBLE
             } else {
                 TransitionManager.beginDelayedTransition(
                     holder.binding.listCardRow,
                     AutoTransition()
                 )
                 holder.binding.taskDescriptionInfo.visibility = View.GONE
+                holder.binding.taskDateInfo.visibility = View.GONE
             }
         }
 
@@ -92,7 +103,8 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
 
     fun setTaskData(task: List<Task>) {
         val diffUtil = ItemsListDiffUtil(todoList, task)
+        val diffResult = DiffUtil.calculateDiff(diffUtil)
         this.todoList = task
-        DiffUtil.calculateDiff(diffUtil).dispatchUpdatesTo(this)
+        diffResult.dispatchUpdatesTo(this)
     }
 }

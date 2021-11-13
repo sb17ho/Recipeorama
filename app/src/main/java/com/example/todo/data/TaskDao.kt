@@ -18,6 +18,6 @@ interface TaskDao {
     @Update
     suspend fun updateTask(task: Task)
 
-    @Query("SELECT * FROM todo_task")
-    fun readAllTask(): LiveData<List<Task>>
+    @Query("SELECT * FROM todo_task WHERE isArchived = :isArchived AND isTrash = :isTrash")
+    fun readAllTask(isArchived: Int, isTrash: Int): LiveData<List<Task>>
 }

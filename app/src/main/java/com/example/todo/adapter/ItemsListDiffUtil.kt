@@ -18,7 +18,8 @@ class ItemsListDiffUtil(
         oldList[oldItemPosition].id == newList[newItemPosition].id &&
                 oldList[oldItemPosition].title == newList[newItemPosition].title &&
                 oldList[oldItemPosition].description == newList[newItemPosition].description &&
-                oldList[oldItemPosition].priority == newList[newItemPosition].priority
-
-
+                oldList[oldItemPosition].priority == newList[newItemPosition].priority &&
+                oldList[oldItemPosition].dd == newList[newItemPosition].dd &&
+                oldList[oldItemPosition].mm == newList[newItemPosition].mm &&
+                oldList[oldItemPosition].yy == newList[newItemPosition].yy
 }

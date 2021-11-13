@@ -1,6 +1,7 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.example.todo.R
 import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentAddItemBinding
 import com.example.todo.viewModel.TodoViewModel
+import java.util.*
 
 class AddItemFragment : Fragment() {
     private lateinit var addFragBinding: FragmentAddItemBinding
@@ -65,12 +67,17 @@ class AddItemFragment : Fragment() {
         val priority = addFragBinding.priorityView.text.toString()
 
         if (!viewModel.checkIfNotEmpty(title, priority)) {
+            val calendar = Calendar.getInstance()
+            val task: Task = Task(
+                title = title,
+                description = description,
+                priority = viewModel.parsePriority(priority),
+                dd = calendar[Calendar.DATE],
+                mm = calendar[Calendar.MONTH],
+                yy = calendar[Calendar.YEAR]
+            )
             viewModel.addTask(
-                Task(
-                    title = title,
-                    description = description,
-                    priority = viewModel.parsePriority(priority)
-                )
+                task
             )
             findNavController().popBackStack()
             Toast.makeText(requireContext(), "Successfully Added", Toast.LENGTH_SHORT).show()

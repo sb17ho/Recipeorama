@@ -1,7 +1,9 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -46,44 +48,42 @@ class ListItemsFragment : Fragment() {
                 target: RecyclerView.ViewHolder
             ) = false
 
+            // LEFT: DELETE AND RIGHT: ARCHIVE
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 when (direction) {
                     ItemTouchHelper.LEFT -> {
                         val removedTask: Task = recyclerAdapter.todoList[viewHolder.adapterPosition]
-                        viewModel.deleteTask(recyclerAdapter.todoList[viewHolder.adapterPosition])
+                        updateTask(recyclerAdapter.todoList[viewHolder.adapterPosition], 0, 1)
                         Snackbar.make(
                             requireActivity().findViewById(android.R.id.content),
                             "${removedTask.title} Deleted",
                             Snackbar.LENGTH_LONG
                         ).setAction("Undo") {
+                            updateTask(removedTask, 0, 0)
                             viewModel.addTask(removedTask)
                         }.setAnchorView(requireActivity().findViewById(R.id.bottom_nav_bar)).show()
                     }
                     ItemTouchHelper.RIGHT -> {
-                        val removedTask: Task = recyclerAdapter.todoList[viewHolder.adapterPosition]
-                        viewModel.deleteTask(recyclerAdapter.todoList[viewHolder.adapterPosition])
+                        val archiveTask: Task = recyclerAdapter.todoList[viewHolder.adapterPosition]
+                        updateTask(recyclerAdapter.todoList[viewHolder.adapterPosition], 1, 0)
                         Snackbar.make(
                             requireActivity().findViewById(android.R.id.content),
-                            "${removedTask.title} Deleted",
+                            "${archiveTask.title} Archived",
                             Snackbar.LENGTH_LONG
                         ).setAction("Undo") {
-                            viewModel.addTask(removedTask)
-                        }.setAnchorView(requireView().findViewById(R.id.bottom_nav_bar)).show()
+                            updateTask(archiveTask, 0, 0)
+                            viewModel.addTask(archiveTask)
+                        }.setAnchorView(requireActivity().findViewById(R.id.bottom_nav_bar)).show()
                     }
                 }
             }
         }).attachToRecyclerView(listItemsBinding.listItem)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.delete_all_nav, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.delete_all) {
-            viewModel.deleteAllTask()
-        }
-        return super.onOptionsItemSelected(item)
+    private fun updateTask(task: Task, isArchived: Int, isTrash: Int) {
+        task.isArchived = isArchived
+        task.isTrash = isTrash
+        viewModel.updateTask(task)
     }
 
     private fun apply_binding_listeners() {

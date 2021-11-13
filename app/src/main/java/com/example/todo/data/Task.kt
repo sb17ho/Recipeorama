@@ -16,5 +16,8 @@ data class Task(
     var description: String,
     var priority: Priority,
     @ColumnInfo(defaultValue = "0") var isArchived: Int = 0,
-    @ColumnInfo(defaultValue = "0") var isTrash: Int = 0
+    @ColumnInfo(defaultValue = "0") var isTrash: Int = 0,
+    var dd: Int = 0,
+    var mm: Int = 0,
+    var yy: Int = 0
 ) : Parcelable

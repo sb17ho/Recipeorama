@@ -18,18 +18,14 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         TaskDatabase.getTaskDatabase(application.applicationContext)
     }
 
-    val allTask = taskDatabase.taskDao().readAllTask()
+    val allTask = taskDatabase.taskDao().readAllTask(0, 0)
+    val allArchivedTasks = taskDatabase.taskDao().readAllTask(1, 0)
+    val allTrashTasks = taskDatabase.taskDao().readAllTask(0, 1)
 
     fun addTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
             taskDatabase.taskDao()
                 .addTask(task)
-        }
-    }
-
-    fun updateTask(task: Task) {
-        viewModelScope.launch(Dispatchers.IO) {
-            taskDatabase.taskDao().updateTask(task)
         }
     }
 
@@ -45,6 +41,34 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
             taskDatabase.taskDao().deleteAllTask()
         }
     }
+
+    fun updateTask(task: Task) {
+        viewModelScope.launch {
+            taskDatabase.taskDao().updateTask(task)
+        }
+    }
+
+//    fun updateTask(
+//        id: Int,
+//        title: String,
+//        description: String,
+//        priority: String,
+//        isArchived: Int = 0,
+//        isTrash: Int = 0
+//    ) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            taskDatabase.taskDao().updateTask(
+//                Task(
+//                    id = id,
+//                    title = title,
+//                    description = description,
+//                    priority = parsePriority(priority),
+//                    isArchived = isArchived,
+//                    isTrash = isTrash
+//                )
+//            )
+//        }
+//    }
 
     fun checkIfNotEmpty(title: String, priority: String): Boolean {
         return title.isEmpty() && priority.isEmpty()

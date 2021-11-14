@@ -1,10 +1,6 @@
 package com.example.todo.adapter
 
-import android.transition.AutoTransition
-import android.transition.TransitionManager
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
@@ -21,7 +17,6 @@ import java.text.DateFormatSymbols
 class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>() {
 
     var todoList = emptyList<Task>()
-//    var stateList = emptyList<State>()
 
     class MyTaskCardAdapter(val binding: TaskCardBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -55,7 +50,6 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
         val dateFormat: String = "Created on ${dd} ${DateFormatSymbols().months[mm]}, ${yy}"
         holder.binding.taskDateInfo.text = dateFormat.toString()
 
-        Log.w("HHHHHHHHHHH", "DFSDFSDFDSF")
         setState.setOnLoadVisibility(todoList[position].id, holder)
 
         holder.binding.listCardRow.setOnClickListener {
@@ -100,38 +94,6 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
         this.todoList = task
         diffResult.dispatchUpdatesTo(this)
     }
-//
-//    private fun ifPresent(task: Task): Boolean {
-//        var result: Boolean = false
-//        for (i in stateList) {
-//            if (i.dataID == task.id) {
-//                result = true
-//            }
-//        }
-//        return result
-//    }
-
-    fun setVisibility(statePosition: State, holder: MyTaskCardAdapter) {
-        if (statePosition.isExpanded == 1) {
-            TransitionManager.beginDelayedTransition(
-                holder.binding.listCardRow,
-                AutoTransition()
-            )
-            holder.binding.taskDescriptionInfo.visibility = View.VISIBLE
-            holder.binding.taskDateInfo.visibility = View.VISIBLE
-        } else if (statePosition.isExpanded == 0) {
-            TransitionManager.beginDelayedTransition(
-                holder.binding.listCardRow,
-                AutoTransition()
-            )
-            holder.binding.taskDescriptionInfo.visibility = View.GONE
-            holder.binding.taskDateInfo.visibility = View.GONE
-        }
-    }
-
-//    fun setStateData(state: List<State>) {
-//        this.stateList = state
-//    }
 
     lateinit var isExpandedSet: SetIsExpanded
     lateinit var setState: AddState

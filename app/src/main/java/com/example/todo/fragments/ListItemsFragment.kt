@@ -1,6 +1,8 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -107,8 +109,6 @@ class ListItemsFragment : Fragment() {
                         isExpanded = 0
                     )
                     viewModel.addState(state)
-                    Log.w("FFFFFFFFFFFFFF", list.toString())
-                    Log.w("YESSSSSSSSS", state.toString())
                 }
                 recyclerAdapter.setTaskData(list)
             })
@@ -131,23 +131,39 @@ class ListItemsFragment : Fragment() {
 
             override fun onTaskAddState(id: Int, holder: TaskCardAdapter.MyTaskCardAdapter) {
                 viewModel.findState(id).observe(viewLifecycleOwner) {
-//                    Log.w("STATE CHECK", statePosition.toString())
                     it.isExpanded =
                         if (holder.binding.taskDescriptionInfo.visibility == View.GONE) {
                             1
                         } else {
                             0
                         }
-                    recyclerAdapter.setVisibility(it, holder)
+                    setVisibility(it, holder)
                 }
             }
 
             override fun setOnLoadVisibility(id: Int, holder: TaskCardAdapter.MyTaskCardAdapter) {
                 viewModel.findState(id).observe(viewLifecycleOwner) {
-//                    Log.w("CHECKKKKKKK", it.toString())
-                    recyclerAdapter.setVisibility(it, holder)
+                    setVisibility(it, holder)
                 }
             }
         })
+    }
+
+    fun setVisibility(statePosition: State, holder: TaskCardAdapter.MyTaskCardAdapter) {
+        if (statePosition.isExpanded == 1) {
+            TransitionManager.beginDelayedTransition(
+                holder.binding.listCardRow,
+                AutoTransition()
+            )
+            holder.binding.taskDescriptionInfo.visibility = View.VISIBLE
+            holder.binding.taskDateInfo.visibility = View.VISIBLE
+        } else if (statePosition.isExpanded == 0) {
+            TransitionManager.beginDelayedTransition(
+                holder.binding.listCardRow,
+                AutoTransition()
+            )
+            holder.binding.taskDescriptionInfo.visibility = View.GONE
+            holder.binding.taskDateInfo.visibility = View.GONE
+        }
     }
 }

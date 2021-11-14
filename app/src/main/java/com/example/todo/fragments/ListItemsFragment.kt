@@ -1,6 +1,7 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.adapter.TaskCardAdapter
+import com.example.todo.data.State
 import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentListItemsBinding
 import com.example.todo.viewModel.TodoViewModel
@@ -87,6 +89,7 @@ class ListItemsFragment : Fragment() {
     }
 
     private fun apply_binding_listeners() {
+
         listItemsBinding.apply {
             listItem.layoutManager = LinearLayoutManager(requireContext())
             listItem.adapter = recyclerAdapter
@@ -97,8 +100,17 @@ class ListItemsFragment : Fragment() {
                 } else {
                     imageNoData.visibility = View.GONE
                 }
-                recyclerAdapter.setTaskData(list)
 
+                for (i in list) {
+                    val state = State(
+                        dataID = i.id,
+                        isExpanded = 0
+                    )
+                    viewModel.addState(state)
+                    Log.w("FFFFFFFFFFFFFF", list.toString())
+                    Log.w("YESSSSSSSSS", state.toString())
+                }
+                recyclerAdapter.setTaskData(list)
             })
 
             addFab.setOnClickListener {
@@ -106,5 +118,36 @@ class ListItemsFragment : Fragment() {
                     .navigate(R.id.navigate_to_add_Items)
             }
         }
+
+
+        recyclerAdapter.onItemClickSetExpanded(object : TaskCardAdapter.SetIsExpanded {
+            override fun onItemClickSetExpanded(state: State, isExpand: Int) {
+                state.isExpanded = isExpand
+                viewModel.updateState(state)
+            }
+        })
+
+        recyclerAdapter.setStateForAdd(object : TaskCardAdapter.AddState {
+
+            override fun onTaskAddState(id: Int, holder: TaskCardAdapter.MyTaskCardAdapter) {
+                viewModel.findState(id).observe(viewLifecycleOwner) {
+//                    Log.w("STATE CHECK", statePosition.toString())
+                    it.isExpanded =
+                        if (holder.binding.taskDescriptionInfo.visibility == View.GONE) {
+                            1
+                        } else {
+                            0
+                        }
+                    recyclerAdapter.setVisibility(it, holder)
+                }
+            }
+
+            override fun setOnLoadVisibility(id: Int, holder: TaskCardAdapter.MyTaskCardAdapter) {
+                viewModel.findState(id).observe(viewLifecycleOwner) {
+//                    Log.w("CHECKKKKKKK", it.toString())
+                    recyclerAdapter.setVisibility(it, holder)
+                }
+            }
+        })
     }
 }

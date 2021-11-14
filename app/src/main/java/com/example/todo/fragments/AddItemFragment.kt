@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.todo.R
+import com.example.todo.data.State
 import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentAddItemBinding
 import com.example.todo.viewModel.TodoViewModel
@@ -76,9 +77,8 @@ class AddItemFragment : Fragment() {
                 mm = calendar[Calendar.MONTH],
                 yy = calendar[Calendar.YEAR]
             )
-            viewModel.addTask(
-                task
-            )
+
+            viewModel.addTask(task)
             findNavController().popBackStack()
             Toast.makeText(requireContext(), "Successfully Added", Toast.LENGTH_SHORT).show()
         } else {

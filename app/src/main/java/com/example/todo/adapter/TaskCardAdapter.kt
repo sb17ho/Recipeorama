@@ -2,6 +2,7 @@ package com.example.todo.adapter
 
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
+import com.example.todo.data.State
 import com.example.todo.data.Task
 import com.example.todo.databinding.TaskCardBinding
 import com.example.todo.fragments.ListItemsFragmentDirections
@@ -19,6 +21,7 @@ import java.text.DateFormatSymbols
 class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>() {
 
     var todoList = emptyList<Task>()
+//    var stateList = emptyList<State>()
 
     class MyTaskCardAdapter(val binding: TaskCardBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -48,25 +51,15 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
             todoList[position].mm,
             todoList[position].yy
         )
+
         val dateFormat: String = "Created on ${dd} ${DateFormatSymbols().months[mm]}, ${yy}"
         holder.binding.taskDateInfo.text = dateFormat.toString()
 
+        Log.w("HHHHHHHHHHH", "DFSDFSDFDSF")
+        setState.setOnLoadVisibility(todoList[position].id, holder)
+
         holder.binding.listCardRow.setOnClickListener {
-            if (holder.binding.taskDescriptionInfo.visibility == View.GONE) {
-                TransitionManager.beginDelayedTransition(
-                    holder.binding.listCardRow,
-                    AutoTransition()
-                )
-                holder.binding.taskDescriptionInfo.visibility = View.VISIBLE
-                holder.binding.taskDateInfo.visibility = View.VISIBLE
-            } else {
-                TransitionManager.beginDelayedTransition(
-                    holder.binding.listCardRow,
-                    AutoTransition()
-                )
-                holder.binding.taskDescriptionInfo.visibility = View.GONE
-                holder.binding.taskDateInfo.visibility = View.GONE
-            }
+            setState.onTaskAddState(todoList[position].id, holder)
         }
 
         when (todoList[position].priority) {
@@ -106,5 +99,57 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
         val diffResult = DiffUtil.calculateDiff(diffUtil)
         this.todoList = task
         diffResult.dispatchUpdatesTo(this)
+    }
+//
+//    private fun ifPresent(task: Task): Boolean {
+//        var result: Boolean = false
+//        for (i in stateList) {
+//            if (i.dataID == task.id) {
+//                result = true
+//            }
+//        }
+//        return result
+//    }
+
+    fun setVisibility(statePosition: State, holder: MyTaskCardAdapter) {
+        if (statePosition.isExpanded == 1) {
+            TransitionManager.beginDelayedTransition(
+                holder.binding.listCardRow,
+                AutoTransition()
+            )
+            holder.binding.taskDescriptionInfo.visibility = View.VISIBLE
+            holder.binding.taskDateInfo.visibility = View.VISIBLE
+        } else if (statePosition.isExpanded == 0) {
+            TransitionManager.beginDelayedTransition(
+                holder.binding.listCardRow,
+                AutoTransition()
+            )
+            holder.binding.taskDescriptionInfo.visibility = View.GONE
+            holder.binding.taskDateInfo.visibility = View.GONE
+        }
+    }
+
+//    fun setStateData(state: List<State>) {
+//        this.stateList = state
+//    }
+
+    lateinit var isExpandedSet: SetIsExpanded
+    lateinit var setState: AddState
+
+    interface AddState {
+        fun onTaskAddState(id: Int, holder: MyTaskCardAdapter)
+        fun setOnLoadVisibility(id: Int, holder: MyTaskCardAdapter)
+    }
+
+    fun setStateForAdd(listener: AddState) {
+        this.setState = listener
+    }
+
+    interface SetIsExpanded {
+        fun onItemClickSetExpanded(state: State, isExpand: Int)
+    }
+
+    fun onItemClickSetExpanded(listener: SetIsExpanded) {
+        this.isExpandedSet = listener
     }
 }

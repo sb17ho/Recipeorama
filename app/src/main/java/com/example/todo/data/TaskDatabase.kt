@@ -8,10 +8,11 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Task::class], version = 3, exportSchema = false)
+@Database(entities = [Task::class, State::class], version = 5, exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class TaskDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
+    abstract fun stateDao(): StateDao
 
     companion object {
         private var INSTANCE: TaskDatabase? = null
@@ -28,7 +29,7 @@ abstract class TaskDatabase : RoomDatabase() {
                     context.applicationContext,
                     TaskDatabase::class.java,
                     "task_database"
-                ).addMigrations(migration_1_2, migration_2_3).build()
+                ).addMigrations(migration_1_2, migration_2_3, migration_3_4, migration_4_5).build()
                 INSTANCE = instance
                 return instance
             }
@@ -46,6 +47,18 @@ abstract class TaskDatabase : RoomDatabase() {
                 database.execSQL("ALTER TABLE todo_task ADD COLUMN dd INTEGER NOT NULL DEFAULT 0")
                 database.execSQL("ALTER TABLE todo_task ADD COLUMN mm INTEGER NOT NULL DEFAULT 0")
                 database.execSQL("ALTER TABLE todo_task ADD COLUMN yy INTEGER NOT NULL DEFAULT 0")
+            }
+        }
+
+        private val migration_3_4 = object : Migration(3, 4) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE todo_task ADD COLUMN isExpanded INTEGER NOT NULL DEFAULT 0")
+            }
+        }
+
+        private val migration_4_5 = object : Migration(4, 5) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE expand_state (dataID INTEGER NOT NULL PRIMARY KEY, isExpanded INTEGER NOT NULL)")
             }
         }
     }

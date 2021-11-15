@@ -1,8 +1,6 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
-import android.transition.AutoTransition
-import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -58,6 +56,7 @@ class ListItemsFragment : Fragment() {
                     ItemTouchHelper.LEFT -> {
                         val removedTask: Task = recyclerAdapter.todoList[viewHolder.adapterPosition]
                         updateTask(recyclerAdapter.todoList[viewHolder.adapterPosition], 0, 1)
+
                         Snackbar.make(
                             requireActivity().findViewById(android.R.id.content),
                             "${removedTask.title} Deleted",
@@ -70,6 +69,7 @@ class ListItemsFragment : Fragment() {
                     ItemTouchHelper.RIGHT -> {
                         val archiveTask: Task = recyclerAdapter.todoList[viewHolder.adapterPosition]
                         updateTask(recyclerAdapter.todoList[viewHolder.adapterPosition], 1, 0)
+
                         Snackbar.make(
                             requireActivity().findViewById(android.R.id.content),
                             "${archiveTask.title} Archived",
@@ -88,6 +88,10 @@ class ListItemsFragment : Fragment() {
         task.isArchived = isArchived
         task.isTrash = isTrash
         viewModel.updateTask(task)
+    }
+
+    private fun updateState(state: State) {
+        viewModel.updateState(state)
     }
 
     private fun apply_binding_listeners() {
@@ -119,51 +123,44 @@ class ListItemsFragment : Fragment() {
             }
         }
 
+//        recyclerAdapter.onItemClickSetExpanded(object : TaskCardAdapter.SetIsExpanded {
+//            override fun onItemClickSetExpanded(task: Task) {
+//                viewModel.updateState(State(dataID = task.id, isExpanded = it.isExpanded))
+//            }
+//        })
 
-        recyclerAdapter.onItemClickSetExpanded(object : TaskCardAdapter.SetIsExpanded {
-            override fun onItemClickSetExpanded(state: State, isExpand: Int) {
-                state.isExpanded = isExpand
-                viewModel.updateState(state)
-            }
-        })
 
-        recyclerAdapter.setStateForAdd(object : TaskCardAdapter.AddState {
-
-            override fun onTaskAddState(id: Int, holder: TaskCardAdapter.MyTaskCardAdapter) {
-                viewModel.findState(id).observe(viewLifecycleOwner) {
-                    it.isExpanded =
-                        if (holder.binding.taskDescriptionInfo.visibility == View.GONE) {
-                            1
-                        } else {
-                            0
-                        }
-                    setVisibility(it, holder)
-                }
-            }
-
-            override fun setOnLoadVisibility(id: Int, holder: TaskCardAdapter.MyTaskCardAdapter) {
-                viewModel.findState(id).observe(viewLifecycleOwner) {
-                    setVisibility(it, holder)
-                }
-            }
-        })
-    }
-
-    fun setVisibility(statePosition: State, holder: TaskCardAdapter.MyTaskCardAdapter) {
-        if (statePosition.isExpanded == 1) {
-            TransitionManager.beginDelayedTransition(
-                holder.binding.listCardRow,
-                AutoTransition()
-            )
-            holder.binding.taskDescriptionInfo.visibility = View.VISIBLE
-            holder.binding.taskDateInfo.visibility = View.VISIBLE
-        } else if (statePosition.isExpanded == 0) {
-            TransitionManager.beginDelayedTransition(
-                holder.binding.listCardRow,
-                AutoTransition()
-            )
-            holder.binding.taskDescriptionInfo.visibility = View.GONE
-            holder.binding.taskDateInfo.visibility = View.GONE
-        }
+//        recyclerAdapter.setStateForAdd(object : TaskCardAdapter.AddState {
+//
+//            override fun onTaskAddState(
+//                task: Task, holder: TaskCardAdapter.MyTaskCardAdapter,
+//                flipped: Boolean
+//            ) {
+//                var isFlipped = flipped
+//                viewModel.findState(task.id).observe(viewLifecycleOwner) {
+//                    Log.w("FLIPPED", isFlipped.toString())
+//                    if (!isFlipped) {
+//                        it.isExpanded =
+//                            if (holder.binding.taskDescriptionInfo.visibility == View.GONE) {
+//                                1
+//                            } else {
+//                                0
+//                            }
+//                        recyclerAdapter.setVisibility(it, holder)
+//                        viewModel.updateState(it)
+//                        isFlipped = true
+//                    }
+//                }
+//            }
+//
+//            override fun setOnLoadVisibility(
+//                task: Task,
+//                holder: TaskCardAdapter.MyTaskCardAdapter
+//            ) {
+//                viewModel.findState(task.id).observe(viewLifecycleOwner) {
+//                    recyclerAdapter.setVisibility(it, holder)
+//                }
+//            }
+//        })
     }
 }

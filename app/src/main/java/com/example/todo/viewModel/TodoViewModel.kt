@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todo.R
-import com.example.todo.data.State
 import com.example.todo.data.Task
 import com.example.todo.data.TaskDatabase
 import com.example.todo.priorityClasses.Priority
@@ -22,7 +21,6 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     val allTask = taskDatabase.taskDao().readAllTask(0, 0)
     val allArchivedTasks = taskDatabase.taskDao().readAllTask(1, 0)
     val allTrashTasks = taskDatabase.taskDao().readAllTask(0, 1)
-    val allStateList = taskDatabase.stateDao().readAllStates()
 
     fun addTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -49,32 +47,6 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
             taskDatabase.taskDao().updateTask(task)
         }
     }
-
-    fun addState(state: State) {
-        viewModelScope.launch {
-            taskDatabase.stateDao().addState(state)
-        }
-    }
-
-    fun updateState(state: State) {
-        viewModelScope.launch {
-            taskDatabase.stateDao().updateState(state)
-        }
-    }
-
-    fun deleteState(state: State) {
-        viewModelScope.launch {
-            taskDatabase.stateDao().deleteState(state)
-        }
-    }
-
-    fun deleteAllStates() {
-        viewModelScope.launch {
-            taskDatabase.stateDao().deleteAllStates()
-        }
-    }
-
-    fun findState(id: Int) = taskDatabase.stateDao().find(id)
 
     fun checkIfNotEmpty(title: String, priority: String): Boolean {
         return title.isEmpty() && priority.isEmpty()

@@ -12,7 +12,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
-import com.example.todo.data.State
 import com.example.todo.data.Task
 import com.example.todo.databinding.TaskCardBinding
 import com.example.todo.fragments.ListItemsFragmentDirections
@@ -66,12 +65,8 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
         val dateFormat: String = "Created on ${dd} ${DateFormatSymbols().months[mm]}, ${yy}"
         holder.binding.taskDateInfo.text = dateFormat.toString()
 
-//        setState.setOnLoadVisibility(todoList[position], holder)
-
         holder.binding.listCardRow.setOnClickListener {
             setVisibility(todoList[position], holder)
-//            setState.onTaskAddState(todoList[position], holder, false)
-//            isExpandedSet.onItemClickSetExpanded(todoList[position])
         }
 
         when (todoList[position].priority) {
@@ -113,26 +108,8 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
         diffResult.dispatchUpdatesTo(this)
     }
 
-    fun setVisibility(statePosition: State, holder: MyTaskCardAdapter) {
-        if (statePosition.isExpanded == 1) {
-            TransitionManager.beginDelayedTransition(
-                holder.binding.listCardRow,
-                AutoTransition()
-            )
-            holder.binding.taskDescriptionInfo.visibility = View.VISIBLE
-            holder.binding.taskDateInfo.visibility = View.VISIBLE
-        } else if (statePosition.isExpanded == 0) {
-            TransitionManager.beginDelayedTransition(
-                holder.binding.listCardRow,
-                AutoTransition()
-            )
-            holder.binding.taskDescriptionInfo.visibility = View.GONE
-            holder.binding.taskDateInfo.visibility = View.GONE
-        }
-    }
-
-    fun setVisibility(task: Task, holder: MyTaskCardAdapter) {
-        if (task.isExpanded == 0) {
+    private fun setVisibility(task: Task, holder: MyTaskCardAdapter) {
+        if (holder.binding.taskDescriptionInfo.visibility == View.GONE) {
             TransitionManager.beginDelayedTransition(
                 holder.binding.listCardRow,
                 AutoTransition()
@@ -152,24 +129,4 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
             viewModel!!.updateTask(task)
         }
     }
-
-//    //    lateinit var isExpandedSet: SetIsExpanded
-//    lateinit var setState: AddState
-//
-//    interface AddState {
-//        fun onTaskAddState(task: Task, holder: MyTaskCardAdapter, flipped: Boolean)
-//        fun setOnLoadVisibility(task: Task, holder: MyTaskCardAdapter)
-//    }
-//
-//    fun setStateForAdd(listener: AddState) {
-//        this.setState = listener
-//    }
-
-//    interface SetIsExpanded {
-//        fun onItemClickSetExpanded(task: Task)
-//    }
-//
-//    fun onItemClickSetExpanded(listener: SetIsExpanded) {
-//        this.isExpandedSet = listener
-//    }
 }

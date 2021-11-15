@@ -21,4 +21,38 @@ data class Task(
     var mm: Int = 0,
     var yy: Int = 0,
     var isExpanded: Int = 0
-) : Parcelable
+) : Parcelable {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Task
+
+        if (id != other.id) return false
+        if (title != other.title) return false
+        if (description != other.description) return false
+        if (priority != other.priority) return false
+        if (isArchived != other.isArchived) return false
+        if (isTrash != other.isTrash) return false
+        if (dd != other.dd) return false
+        if (mm != other.mm) return false
+        if (yy != other.yy) return false
+        if (isExpanded != other.isExpanded) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + title.hashCode()
+        result = 31 * result + description.hashCode()
+        result = 31 * result + priority.hashCode()
+        result = 31 * result + isArchived
+        result = 31 * result + isTrash
+        result = 31 * result + dd
+        result = 31 * result + mm
+        result = 31 * result + yy
+        result = 31 * result + isExpanded
+        return result
+    }
+}

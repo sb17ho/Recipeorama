@@ -1,7 +1,6 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.adapter.TaskCardAdapter
-import com.example.todo.data.State
 import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentListItemsBinding
 import com.example.todo.viewModel.TodoViewModel
@@ -90,10 +88,6 @@ class ListItemsFragment : Fragment() {
         viewModel.updateTask(task)
     }
 
-    private fun updateState(state: State) {
-        viewModel.updateState(state)
-    }
-
     private fun apply_binding_listeners() {
 
         listItemsBinding.apply {
@@ -106,14 +100,6 @@ class ListItemsFragment : Fragment() {
                 } else {
                     imageNoData.visibility = View.GONE
                 }
-
-                for (i in list) {
-                    val state = State(
-                        dataID = i.id,
-                        isExpanded = 0
-                    )
-                    viewModel.addState(state)
-                }
                 recyclerAdapter.setTaskData(list)
             })
 
@@ -122,45 +108,5 @@ class ListItemsFragment : Fragment() {
                     .navigate(R.id.navigate_to_add_Items)
             }
         }
-
-//        recyclerAdapter.onItemClickSetExpanded(object : TaskCardAdapter.SetIsExpanded {
-//            override fun onItemClickSetExpanded(task: Task) {
-//                viewModel.updateState(State(dataID = task.id, isExpanded = it.isExpanded))
-//            }
-//        })
-
-
-//        recyclerAdapter.setStateForAdd(object : TaskCardAdapter.AddState {
-//
-//            override fun onTaskAddState(
-//                task: Task, holder: TaskCardAdapter.MyTaskCardAdapter,
-//                flipped: Boolean
-//            ) {
-//                var isFlipped = flipped
-//                viewModel.findState(task.id).observe(viewLifecycleOwner) {
-//                    Log.w("FLIPPED", isFlipped.toString())
-//                    if (!isFlipped) {
-//                        it.isExpanded =
-//                            if (holder.binding.taskDescriptionInfo.visibility == View.GONE) {
-//                                1
-//                            } else {
-//                                0
-//                            }
-//                        recyclerAdapter.setVisibility(it, holder)
-//                        viewModel.updateState(it)
-//                        isFlipped = true
-//                    }
-//                }
-//            }
-//
-//            override fun setOnLoadVisibility(
-//                task: Task,
-//                holder: TaskCardAdapter.MyTaskCardAdapter
-//            ) {
-//                viewModel.findState(task.id).observe(viewLifecycleOwner) {
-//                    recyclerAdapter.setVisibility(it, holder)
-//                }
-//            }
-//        })
     }
 }

@@ -14,13 +14,6 @@ class ItemsListDiffUtil(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition].id == newList[newItemPosition].id
 
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-        oldList[oldItemPosition].id == newList[newItemPosition].id &&
-                oldList[oldItemPosition].title == newList[newItemPosition].title &&
-                oldList[oldItemPosition].description == newList[newItemPosition].description &&
-                oldList[oldItemPosition].priority == newList[newItemPosition].priority &&
-                oldList[oldItemPosition].dd == newList[newItemPosition].dd &&
-                oldList[oldItemPosition].mm == newList[newItemPosition].mm &&
-                oldList[oldItemPosition].yy == newList[newItemPosition].yy &&
-                oldList[oldItemPosition].isExpanded == newList[newItemPosition].isExpanded
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+        oldList[oldItemPosition] == newList[newItemPosition]
 }

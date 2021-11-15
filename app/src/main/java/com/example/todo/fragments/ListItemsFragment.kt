@@ -61,7 +61,6 @@ class ListItemsFragment : Fragment() {
                             Snackbar.LENGTH_LONG
                         ).setAction("Undo") {
                             updateTask(removedTask, 0, 0)
-                            viewModel.addTask(removedTask)
                         }.setAnchorView(requireActivity().findViewById(R.id.bottom_nav_bar)).show()
                     }
                     ItemTouchHelper.RIGHT -> {
@@ -74,7 +73,6 @@ class ListItemsFragment : Fragment() {
                             Snackbar.LENGTH_LONG
                         ).setAction("Undo") {
                             updateTask(archiveTask, 0, 0)
-                            viewModel.addTask(archiveTask)
                         }.setAnchorView(requireActivity().findViewById(R.id.bottom_nav_bar)).show()
                     }
                 }

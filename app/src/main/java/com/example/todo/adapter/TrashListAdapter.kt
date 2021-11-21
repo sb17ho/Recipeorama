@@ -42,7 +42,7 @@ class TrashListAdapter : RecyclerView.Adapter<TrashListAdapter.MyTrashListAdapte
         holder.archiveDeleteCardBinding.itemNameArchiveDelete.text = trashList[position].title
         holder.archiveDeleteCardBinding.itemArchiveDeleteDescription.text =
             trashList[position].description
-        holder.archiveDeleteCardBinding.archiveDeleteImage.setImageResource(R.drawable.ic_baseline_delete)
+        holder.archiveDeleteCardBinding.archiveDeleteImage.setImageResource(R.drawable.ic_baseline_restore_from_trash_24)
     }
 
     override fun getItemCount(): Int = trashList.size

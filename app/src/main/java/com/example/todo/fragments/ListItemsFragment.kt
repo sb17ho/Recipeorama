@@ -17,6 +17,7 @@ import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentListItemsBinding
 import com.example.todo.viewModel.TodoViewModel
 import com.google.android.material.snackbar.Snackbar
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class ListItemsFragment : Fragment() {
     private lateinit var listItemsBinding: FragmentListItemsBinding
@@ -89,6 +90,10 @@ class ListItemsFragment : Fragment() {
     private fun apply_binding_listeners() {
 
         listItemsBinding.apply {
+            listItem.itemAnimator = SlideInUpAnimator().apply {
+                addDuration = 300
+            }
+
             listItem.layoutManager = LinearLayoutManager(requireContext())
             listItem.adapter = recyclerAdapter
 

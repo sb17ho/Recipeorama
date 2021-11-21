@@ -15,6 +15,7 @@ import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentTrashBinding
 import com.example.todo.viewModel.TodoViewModel
 import com.google.android.material.snackbar.Snackbar
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class TrashFragment : Fragment() {
     private val viewModel: TodoViewModel by lazy { ViewModelProvider(this)[TodoViewModel::class.java] }
@@ -40,6 +41,9 @@ class TrashFragment : Fragment() {
             })
 
             applySwipeGesture()
+            trashBind.recyclerViewTrash.itemAnimator = SlideInUpAnimator().apply {
+                addDuration = 300
+            }
 
             viewModel.allTrashTasks.observe(viewLifecycleOwner, Observer { list ->
 //            if (list.isEmpty()) {

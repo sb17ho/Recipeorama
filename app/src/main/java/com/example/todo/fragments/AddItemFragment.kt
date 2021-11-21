@@ -1,6 +1,7 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,6 +67,7 @@ class AddItemFragment : Fragment() {
         val priority = addFragBinding.priorityView.text.toString()
 
         if (!viewModel.checkIfNotEmpty(title, priority)) {
+            Log.w("PIRI", priority.toString()) //TODO: CHECK THIS WHEN PLUG IN MOBILE
             val calendar = Calendar.getInstance()
             val task: Task = Task(
                 title = title,

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_card_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="5dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginEnd="5dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginEnd="2dp"
     android:layout_marginBottom="5dp"
     app:cardCornerRadius="10dp">
 
@@ -20,19 +21,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-            android:padding="4dp"
+            android:padding="8dp"
             android:weightSum="100">
+
+            <ImageView
+                android:id="@+id/drop_down_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+                android:layout_gravity="center"
+                android:padding="6dp"
+                android:contentDescription="@string/drop_down_arrow" />
 
             <TextView
                 android:id="@+id/task_name_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
+                android:padding="5dp"
                 android:layout_weight="95"
                 android:hint="@string/task_item_placeHolder"
                 android:textSize="20sp"
@@ -43,8 +50,6 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="4dp"
                 app:cardBackgroundColor="@color/red"
                 app:cardCornerRadius="100dp" />
 
@@ -52,26 +57,34 @@
 
         <TextView
             android:id="@+id/task_description_info"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:padding="2dp"
+            android:layout_marginStart="12dp"
             android:hint="@string/description_add"
             android:textSize="16sp"
-            android:textStyle="normal"
-            android:visibility="gone" />
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+            android:selectAllOnFocus="false"
+            android:inputType="textMultiLine"
+            android:clickable="false"
+            android:contextClickable="false"
+            android:visibility="gone"
+            tools:ignore="TextViewEdits" />
 
         <TextView
             android:id="@+id/task_date_info"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="12dp"
+            android:padding="4dp"
             android:hint="@string/description_add"
             android:textSize="11sp"
-            android:textStyle="normal"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+            android:textStyle="italic"
             android:visibility="gone" />
     </LinearLayout>
 

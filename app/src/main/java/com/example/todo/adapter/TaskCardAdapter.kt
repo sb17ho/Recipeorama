@@ -65,7 +65,7 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
         val dateFormat: String = "Created on ${dd} ${DateFormatSymbols().months[mm]}, ${yy}"
         holder.binding.taskDateInfo.text = dateFormat.toString()
 
-        holder.binding.listCardRow.setOnClickListener {
+        holder.binding.dropDownArrow.setOnClickListener {
             setVisibility(todoList[position], holder)
         }
 
@@ -116,6 +116,7 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
             )
             holder.binding.taskDescriptionInfo.visibility = View.VISIBLE
             holder.binding.taskDateInfo.visibility = View.VISIBLE
+            holder.binding.dropDownArrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
             task.isExpanded = 1
             viewModel!!.updateTask(task)
         } else {
@@ -125,6 +126,8 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
             )
             holder.binding.taskDescriptionInfo.visibility = View.GONE
             holder.binding.taskDateInfo.visibility = View.GONE
+
+            holder.binding.dropDownArrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
             task.isExpanded = 0
             viewModel!!.updateTask(task)
         }

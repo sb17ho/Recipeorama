@@ -17,6 +17,7 @@
     <string name="archive">Archive</string>
     <string name="trash">Trash</string>
     <string name="archive_or_delete">Archive OR Delete</string>
+    <string name="drop_down_arrow">Drop Down Arrow</string>
 
     <string-array name="priority_drop_down">
         <item>None</item>

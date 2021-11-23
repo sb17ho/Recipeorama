@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.UpdateFragment">
+    tools:context=".fragments.AddItemFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_text_layout_1"
@@ -17,6 +17,7 @@
         android:hint="@string/task_name"
         app:counterEnabled="true"
         app:counterMaxLength="20"
+        app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -28,6 +29,8 @@
             android:id="@+id/task_name_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
             android:inputType="textCapSentences"
             android:maxLength="20"
             app:autoSizeTextType="uniform" />
@@ -43,6 +46,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="30dp"
         android:hint="@string/priority"
+        app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -54,18 +58,23 @@
             android:id="@+id/priority_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="4dp"
             android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/description_input_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="30dp"
         android:hint="@string/description_add"
+        app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
         app:layout_constraintBottom_toTopOf="@+id/done_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -76,9 +85,16 @@
         <EditText
             android:id="@+id/task_description"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textCapSentences"
-            android:gravity="start" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:gravity="start|top"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences|textMultiLine"
+            android:lines="300"
+            tools:ignore="TextViewEdits,SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,5 +113,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_2"
         app:layout_constraintVertical_bias="0.88" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

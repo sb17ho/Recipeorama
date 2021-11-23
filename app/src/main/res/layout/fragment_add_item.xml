@@ -86,13 +86,14 @@
             android:id="@+id/task_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="start"
             android:layout_marginStart="2dp"
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="2dp"
-            android:layout_gravity="start"
             android:gravity="start|top"
             android:importantForAutofill="no"
-            android:inputType="textCapSentences"
+            android:inputType="textCapSentences|textMultiLine"
+            android:lines="300"
             tools:ignore="TextViewEdits,SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>

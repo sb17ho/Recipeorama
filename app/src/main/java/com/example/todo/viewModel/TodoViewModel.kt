@@ -48,8 +48,8 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun checkIfNotEmpty(title: String, priority: String): Boolean {
-        return title.isEmpty() && priority.isEmpty()
+    fun checkIfNotEmpty(title: String): Boolean {
+        return title.isEmpty()
     }
 
     fun parsePriority(priority: String): Priority {

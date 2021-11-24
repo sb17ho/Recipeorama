@@ -82,9 +82,13 @@ class UpdateFragment : Fragment() {
     fun updateDatabaseItem() {
         val title = updateFragment.taskNameEditText.text.toString()
         val description = updateFragment.taskDescription.text.toString()
-        val priority = updateFragment.priorityView.text.toString()
+        var priority = updateFragment.priorityView.text.toString()
 
-        if (!viewModel.checkIfNotEmpty(title, priority)) {
+        if (!viewModel.checkIfNotEmpty(title)) {
+            if (priority.isBlank()){
+                priority = "low"
+            }
+
             val task: Task = args.updateCurrentItem
             task.title = title
             task.description = description
@@ -94,8 +98,9 @@ class UpdateFragment : Fragment() {
             findNavController().popBackStack()
             Toast.makeText(requireContext(), "Successfully Updated", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(requireContext(), "Please Fill out all Fields", Toast.LENGTH_SHORT)
-                .show()
+            updateFragment.apply {
+                inputTextLayout1.error = "Text Field Required"
+            }
         }
     }
 

@@ -5,7 +5,6 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.findNavController
@@ -15,7 +14,6 @@ import com.example.todo.R
 import com.example.todo.data.Task
 import com.example.todo.databinding.TaskCardBinding
 import com.example.todo.fragments.ListItemsFragmentDirections
-import com.example.todo.priorityClasses.Priority
 import com.example.todo.viewModel.TodoViewModel
 import java.text.DateFormatSymbols
 
@@ -48,7 +46,8 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
         holder.binding.taskNameView.text = todoList[position].title.replaceFirstChar {
             todoList[position].title.first().uppercase()
         }
-        holder.binding.taskDescriptionInfo.text = todoList[position].description
+        holder.binding.taskDescriptionInfo.text =
+            if (todoList[position].description == "") "" else todoList[position].description
 
         holder.binding.listCardRow.setOnClickListener {
             holder.binding.root.findNavController()

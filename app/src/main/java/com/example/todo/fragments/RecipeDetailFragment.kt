@@ -4,16 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentRecipeDetailBinding
+import com.example.todo.priorityClasses.Priority
+import com.example.todo.viewModel.TodoViewModel
 import com.squareup.picasso.Picasso
+import java.util.*
 
 class RecipeDetailFragment : Fragment() {
     private lateinit var recipeDetailFragment: FragmentRecipeDetailBinding
     private val recipeInfoArgs by navArgs<RecipeDetailFragmentArgs>()
     private val ingredientsList: MutableList<String> = mutableListOf()
     private val instructions: MutableList<String> = mutableListOf()
+    private val viewModel by lazy {
+        ViewModelProvider(this)[TodoViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,9 +102,30 @@ class RecipeDetailFragment : Fragment() {
 
             measurementsId.text = measurement
 
+            addTitleToRoomId.setOnClickListener {
+                insertMealTitleToDatabase()
+            }
         }
 
         return recipeDetailFragment.root
+    }
+
+    fun insertMealTitleToDatabase() {
+
+        val calendar = Calendar.getInstance()
+        val task: Task = Task(
+            title = recipeInfoArgs.recipeInfo.strMeal,
+            description = "",
+            priority = Priority.LOW,
+            dd = calendar[Calendar.DATE],
+            mm = calendar[Calendar.MONTH],
+            yy = calendar[Calendar.YEAR]
+        )
+
+        viewModel.addTask(task)
+        findNavController().popBackStack()
+        Toast.makeText(requireContext(), "Title Added, Go To Home To Add Purchase Ingredients", Toast.LENGTH_SHORT).show()
+
     }
 
 }

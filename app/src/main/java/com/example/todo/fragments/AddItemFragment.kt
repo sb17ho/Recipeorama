@@ -13,20 +13,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.todo.R
 import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentAddItemBinding
+import com.example.todo.priorityClasses.Priority
 import com.example.todo.viewModel.TodoViewModel
 import java.util.*
 
 class AddItemFragment : Fragment() {
     private lateinit var addFragBinding: FragmentAddItemBinding
     private val viewModel: TodoViewModel by lazy { ViewModelProvider(this)[TodoViewModel::class.java] }
-
-    override fun onResume() {
-        super.onResume()
-        val priorityList = resources.getStringArray(R.array.priority_drop_down)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_textview, priorityList)
-        addFragBinding.priorityView.setAdapter(arrayAdapter)
-    }
-
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,16 +36,6 @@ class AddItemFragment : Fragment() {
                 }
             }
 
-            priorityView.doOnTextChanged { text, _, _, _ ->
-                if (!text.isNullOrBlank())
-                    textInputLayout2.error = null
-            }
-
-            priorityView.setOnDismissListener {
-                viewModel.dropDownListener(priorityView.text.toString(), priorityView)
-                textInputLayout2.boxStrokeColor = priorityView.currentTextColor
-            }
-
             doneButton.setOnClickListener {
                 insertDataToDatabase()
             }
@@ -63,17 +47,14 @@ class AddItemFragment : Fragment() {
     fun insertDataToDatabase() {
         val title = addFragBinding.taskNameEditText.text.toString()
         val description = addFragBinding.taskDescription.text.toString()
-        var priority = addFragBinding.priorityView.text.toString()
 
         if (!viewModel.checkIfNotEmpty(title)) {
-            if (priority.isBlank()) {
-                priority = "low"
-            }
+
             val calendar = Calendar.getInstance()
             val task: Task = Task(
                 title = title,
                 description = description,
-                priority = viewModel.parsePriority(priority),
+                priority = Priority.LOW,
                 dd = calendar[Calendar.DATE],
                 mm = calendar[Calendar.MONTH],
                 yy = calendar[Calendar.YEAR]

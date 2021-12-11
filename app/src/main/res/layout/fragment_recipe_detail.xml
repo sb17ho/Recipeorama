@@ -202,6 +202,7 @@
             app:layout_constraintVertical_bias="0.072" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_title_to_room_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

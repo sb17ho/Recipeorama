@@ -23,14 +23,6 @@ class UpdateFragment : Fragment() {
 
     private val args by navArgs<UpdateFragmentArgs>()
 
-    override fun onResume() {
-        super.onResume()
-        val priorityList = resources.getStringArray(R.array.priority_drop_down)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_textview, priorityList)
-        updateFragment.priorityView.setAdapter(arrayAdapter)
-    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,13 +32,7 @@ class UpdateFragment : Fragment() {
         updateFragment.apply {
 
             taskNameEditText.setText(args.updateCurrentItem.title)
-            priorityView.setText(priorityViewParse(args.updateCurrentItem.priority))
             taskDescription.setText(args.updateCurrentItem.description)
-
-            priorityView.setOnDismissListener {
-                viewModel.dropDownListener(priorityView.text.toString(), priorityView)
-                textInputLayout2.boxStrokeColor = priorityView.currentTextColor
-            }
 
             doneButton.setOnClickListener {
                 updateDatabaseItem()
@@ -56,44 +42,16 @@ class UpdateFragment : Fragment() {
         return updateFragment.root
     }
 
-    fun priorityViewParse(priority: Priority): String {
-        var result: String = "None"
-
-        when (priority.name.lowercase()) {
-            "low" -> {
-                updateFragment.textInputLayout2.boxStrokeColor =
-                    ContextCompat.getColor(updateFragment.textInputLayout2.context, R.color.green)
-                result = "Low"
-            }
-            "medium" -> {
-                updateFragment.textInputLayout2.boxStrokeColor =
-                    ContextCompat.getColor(updateFragment.textInputLayout2.context, R.color.orange)
-                result = "Medium"
-            }
-            "high" -> {
-                updateFragment.textInputLayout2.boxStrokeColor =
-                    ContextCompat.getColor(updateFragment.textInputLayout2.context, R.color.red)
-                result = "High"
-            }
-        }
-        return result
-    }
-
     fun updateDatabaseItem() {
         val title = updateFragment.taskNameEditText.text.toString()
         val description = updateFragment.taskDescription.text.toString()
-        var priority = updateFragment.priorityView.text.toString()
 
         if (!viewModel.checkIfNotEmpty(title)) {
-            if (priority.isBlank()){
-                priority = "low"
-            }
 
             val task: Task = args.updateCurrentItem
             task.title = title
             task.description = description
-            task.priority = viewModel.parsePriority(priority)
-
+            task.priority = Priority.LOW
             viewModel.updateTask(task)
             findNavController().popBackStack()
             Toast.makeText(requireContext(), "Successfully Updated", Toast.LENGTH_SHORT).show()

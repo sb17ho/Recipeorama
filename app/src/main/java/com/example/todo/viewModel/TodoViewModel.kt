@@ -4,11 +4,15 @@ import android.app.Application
 import android.widget.AutoCompleteTextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.todo.R
 import com.example.todo.data.Task
 import com.example.todo.data.TaskDatabase
 import com.example.todo.priorityClasses.Priority
+import com.example.todo.retrofit.MealsData
+import com.example.todo.retrofit.Recipe
+import com.example.todo.retrofit.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,6 +21,10 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     private val taskDatabase: TaskDatabase by lazy {
         TaskDatabase.getTaskDatabase(application.applicationContext)
     }
+
+    //Retrofit
+    var myMealsDatabase: MutableLiveData<MealsData> = MutableLiveData()
+    var myMeals: MutableLiveData<List<Recipe>> = MutableLiveData()
 
     val allTask = taskDatabase.taskDao().readAllTask(0, 0)
     val allArchivedTasks = taskDatabase.taskDao().readAllTask(1, 0)
@@ -87,6 +95,16 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
                     R.color.red
                 )
             )
+        }
+    }
+
+    fun getItems(name: String) {
+        viewModelScope.launch {
+            val items = RetrofitInstance().mealDBAPIServiceCreate.getAllSearchRecipeByName(
+                specifyRecipeName = name
+            )
+            myMealsDatabase.value = items
+            myMeals.value = myMealsDatabase.value?.meals
         }
     }
 }

@@ -73,4 +73,11 @@ dependencies {
 
     //RecyclerView Animation
     implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }

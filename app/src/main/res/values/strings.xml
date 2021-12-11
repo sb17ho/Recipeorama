@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Task Master</string>
+    <string name="app_name">Recipe List</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_item">Add Item</string>
@@ -18,6 +18,8 @@
     <string name="trash">Trash</string>
     <string name="archive_or_delete">Archive OR Delete</string>
     <string name="drop_down_arrow">Drop Down Arrow</string>
+    <string name="recipe_title">Recipe Title</string>
+    <string name="main_screen_recipe_view">Main Screen Recipe View</string>
 
     <string-array name="priority_drop_down">
         <item>None</item>

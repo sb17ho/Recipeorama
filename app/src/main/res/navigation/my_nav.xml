@@ -53,4 +53,22 @@
         android:name="com.example.todo.fragments.TrashFragment"
         android:label="fragment_trash"
         tools:layout="@layout/fragment_trash" />
+    <fragment
+        android:id="@+id/recipeListFragment"
+        android:name="com.example.todo.fragments.RecipeListFragment"
+        android:label="fragment_recipe_list"
+        tools:layout="@layout/fragment_recipe_list" >
+        <action
+            android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.example.todo.fragments.RecipeDetailFragment"
+        android:label="fragment_recipe_detail"
+        tools:layout="@layout/fragment_recipe_detail" >
+        <argument
+            android:name="recipeInfo"
+            app:argType="com.example.todo.retrofit.Recipe" />
+    </fragment>
 </navigation>

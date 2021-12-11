@@ -67,35 +67,6 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
         holder.binding.dropDownArrow.setOnClickListener {
             setVisibility(todoList[position], holder)
         }
-
-        when (todoList[position].priority) {
-            Priority.LOW -> {
-                holder.binding.priorityLabel.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        holder.binding.root.context,
-                        R.color.green
-                    )
-                )
-            }
-            Priority.MEDIUM -> holder.binding.priorityLabel.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.binding.root.context,
-                    R.color.orange
-                )
-            )
-            Priority.HIGH -> holder.binding.priorityLabel.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.binding.root.context,
-                    R.color.red
-                )
-            )
-            else -> holder.binding.priorityLabel.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.binding.root.context,
-                    R.color.material_on_surface_stroke
-                )
-            )
-        }
     }
 
     override fun getItemCount() = todoList.size

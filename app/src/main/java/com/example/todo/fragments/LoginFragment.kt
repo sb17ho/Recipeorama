@@ -16,8 +16,6 @@ class LoginFragment : Fragment() {
     ): View {
         loginBind = FragmentLoginBinding.inflate(layoutInflater, container, false)
 
-
-
         return loginBind.root
     }
 

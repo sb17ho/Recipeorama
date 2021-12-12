@@ -1,6 +1,7 @@
 package com.example.todo
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
@@ -21,6 +22,23 @@ class MainActivity : AppCompatActivity() {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        mainBinding.bottomNavBar.setupWithNavController(navController)
+        mainBinding.apply {
+            bottomNavBar.setupWithNavController(navController)
+
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+
+                if (destination.id == R.id.loginFragment2) {
+                    bottomNavBar.visibility = View.GONE
+                    supportActionBar!!.hide()
+                } else {
+                    bottomNavBar.visibility = View.VISIBLE
+                    supportActionBar!!.show()
+                }
+            }
+        }
+    }
+
+    fun setActionBarTitle(title: String?) {
+        supportActionBar!!.title = title
     }
 }

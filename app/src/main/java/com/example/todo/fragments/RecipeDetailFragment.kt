@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.todo.MainActivity
 import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentRecipeDetailBinding
 import com.example.todo.priorityClasses.Priority
@@ -124,8 +125,19 @@ class RecipeDetailFragment : Fragment() {
 
         viewModel.addTask(task)
         findNavController().popBackStack()
-        Toast.makeText(requireContext(), "Title Added, Go To Home To Add Purchase Ingredients", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            "Title Added, Go To Home To Add Purchase Ingredients",
+            Toast.LENGTH_SHORT
+        ).show()
 
+    }
+
+    //To override the action bar title
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity)
+            .setActionBarTitle(recipeInfoArgs.recipeInfo.strMeal)
     }
 
 }

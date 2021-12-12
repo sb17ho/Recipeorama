@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/listItems">
+    app:startDestination="@id/loginFragment2">
 
     <fragment
         android:id="@+id/listItems"
@@ -42,7 +42,11 @@
         android:id="@+id/settingsFragment"
         android:name="com.example.todo.fragments.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/archiveFragment"
         android:name="com.example.todo.fragments.ArchiveFragment"
@@ -70,5 +74,14 @@
         <argument
             android:name="recipeInfo"
             app:argType="com.example.todo.retrofit.Recipe" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment2"
+        android:name="com.example.todo.fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment2_to_listItems"
+            app:destination="@id/listItems" />
     </fragment>
 </navigation>

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todo.MainActivity
 import com.example.todo.R
 import com.example.todo.adapter.TrashListAdapter
 import com.example.todo.data.Task
@@ -108,5 +109,12 @@ class TrashFragment : Fragment() {
             viewModel.deleteAllTask()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    //To override the action bar title
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity)
+            .setActionBarTitle("Trash")
     }
 }

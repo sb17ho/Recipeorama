@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.todo.MainActivity
 import com.example.todo.R
 import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentUpdateBinding
@@ -62,4 +63,10 @@ class UpdateFragment : Fragment() {
         }
     }
 
+    //To override the action bar title
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity)
+            .setActionBarTitle("Update")
+    }
 }

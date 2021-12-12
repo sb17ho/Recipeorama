@@ -17,6 +17,7 @@ import com.example.todo.viewModel.TodoViewModel
 import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
+//TODO Remove
 class ArchiveFragment : Fragment() {
     private val viewModel: TodoViewModel by lazy { ViewModelProvider(this)[TodoViewModel::class.java] }
     private lateinit var archiveFragmentBind: FragmentArchiveBinding

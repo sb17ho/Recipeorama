@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todo.MainActivity
 import com.example.todo.R
 import com.example.todo.adapter.TaskCardAdapter
 import com.example.todo.data.Task
@@ -50,7 +51,7 @@ class ListItemsFragment : Fragment() {
                 target: RecyclerView.ViewHolder
             ) = false
 
-            // LEFT: DELETE AND RIGHT: ARCHIVE
+            // LEFT: DELETE AND RIGHT: ARCHIVE (NOW DELETE)
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 when (direction) {
                     ItemTouchHelper.LEFT -> {
@@ -67,7 +68,7 @@ class ListItemsFragment : Fragment() {
                     }
                     ItemTouchHelper.RIGHT -> {
                         val archiveTask: Task = recyclerAdapter.todoList[viewHolder.adapterPosition]
-                        updateTask(recyclerAdapter.todoList[viewHolder.adapterPosition], 1, 0)
+                        updateTask(recyclerAdapter.todoList[viewHolder.adapterPosition], 0, 1)
 
                         Snackbar.make(
                             requireActivity().findViewById(android.R.id.content),
@@ -112,5 +113,12 @@ class ListItemsFragment : Fragment() {
                     .navigate(R.id.navigate_to_add_Items)
             }
         }
+    }
+
+    //To override the action bar title
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity)
+            .setActionBarTitle("Grocery List")
     }
 }

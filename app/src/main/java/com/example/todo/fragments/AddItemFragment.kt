@@ -17,6 +17,7 @@ import com.example.todo.priorityClasses.Priority
 import com.example.todo.viewModel.TodoViewModel
 import java.util.*
 
+//TODO Most probably not required
 class AddItemFragment : Fragment() {
     private lateinit var addFragBinding: FragmentAddItemBinding
     private val viewModel: TodoViewModel by lazy { ViewModelProvider(this)[TodoViewModel::class.java] }

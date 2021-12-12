@@ -76,4 +76,11 @@ class RecipeListFragment : Fragment() {
         }
     }
 
+    //To override the action bar title
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity)
+            .setActionBarTitle("Recipes")
+    }
+
 }

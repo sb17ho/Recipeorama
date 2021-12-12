@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/loginFragment"
     android:layout_width="match_parent"
@@ -10,27 +11,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
+        android:orientation="vertical"
+        android:padding="20dp"
         android:weightSum="100"
-        android:orientation="vertical">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_gravity="center"
             android:layout_height="0dp"
-            android:layout_weight="80"
-            android:contentDescription="Login Image Grocery"
+            android:layout_gravity="center"
+            android:layout_weight="50"
+            android:contentDescription="@string/login_image_grocery"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_grocery" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:text="@string/recipeorama_app_name"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            android:textStyle="italic|bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="22"
+            android:text="@string/recipes_and_grocery_list_in_one_place"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="italic" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/google_sign_in_button"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="10"/>
-
+            android:layout_gravity="center"
+            android:layout_weight="10" />
 
     </LinearLayout>
 

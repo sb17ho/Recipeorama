@@ -5,16 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.todo.MainActivity
 import com.example.todo.R
 import com.example.todo.databinding.FragmentSettingsBinding
+import com.example.todo.viewModel.TodoViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 class SettingsFragment : Fragment() {
     private lateinit var settingsFragmentBind: FragmentSettingsBinding
+    private val viewModel by lazy {
+        ViewModelProvider(this)[TodoViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +44,9 @@ class SettingsFragment : Fragment() {
                 }
 
             }
+
+            userNameDisplay.text = viewModel.getCurrentUserName()
+            userEmailDisplay.text = viewModel.getCurrentUserEmail()
         }
 
         return settingsFragmentBind.root

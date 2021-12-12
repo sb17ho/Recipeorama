@@ -1,14 +1,12 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -56,26 +54,26 @@ class ListItemsFragment : Fragment() {
                 when (direction) {
                     ItemTouchHelper.LEFT -> {
                         val removedTask: Task = recyclerAdapter.todoList[viewHolder.adapterPosition]
-                        updateTask(recyclerAdapter.todoList[viewHolder.adapterPosition], 0, 1)
+                        updateTask(recyclerAdapter.todoList[viewHolder.adapterPosition], 1)
 
                         Snackbar.make(
                             requireActivity().findViewById(android.R.id.content),
                             "${removedTask.title} Deleted",
                             Snackbar.LENGTH_LONG
                         ).setAction("Undo") {
-                            updateTask(removedTask, 0, 0)
+                            updateTask(removedTask, 0)
                         }.setAnchorView(requireActivity().findViewById(R.id.bottom_nav_bar)).show()
                     }
                     ItemTouchHelper.RIGHT -> {
                         val archiveTask: Task = recyclerAdapter.todoList[viewHolder.adapterPosition]
-                        updateTask(recyclerAdapter.todoList[viewHolder.adapterPosition], 0, 1)
+                        updateTask(recyclerAdapter.todoList[viewHolder.adapterPosition], 1)
 
                         Snackbar.make(
                             requireActivity().findViewById(android.R.id.content),
-                            "${archiveTask.title} Archived",
+                            "${archiveTask.title} Deleted",
                             Snackbar.LENGTH_LONG
                         ).setAction("Undo") {
-                            updateTask(archiveTask, 0, 0)
+                            updateTask(archiveTask, 0)
                         }.setAnchorView(requireActivity().findViewById(R.id.bottom_nav_bar)).show()
                     }
                 }
@@ -83,8 +81,7 @@ class ListItemsFragment : Fragment() {
         }).attachToRecyclerView(listItemsBinding.listItem)
     }
 
-    private fun updateTask(task: Task, isArchived: Int, isTrash: Int) {
-        task.isArchived = isArchived
+    private fun updateTask(task: Task, isTrash: Int) {
         task.isTrash = isTrash
         viewModel.updateTask(task)
     }
@@ -107,11 +104,6 @@ class ListItemsFragment : Fragment() {
                 }
                 recyclerAdapter.setTaskData(list)
             })
-
-            addFab.setOnClickListener {
-                Navigation.findNavController(listItemsBinding.root)
-                    .navigate(R.id.navigate_to_add_Items)
-            }
         }
     }
 

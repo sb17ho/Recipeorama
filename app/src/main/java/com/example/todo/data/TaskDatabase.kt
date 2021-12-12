@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Task::class], version = 6, exportSchema = false)
+@Database(entities = [Task::class], version = 7, exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class TaskDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
@@ -33,7 +33,8 @@ abstract class TaskDatabase : RoomDatabase() {
                     migration_2_3,
                     migration_3_4,
                     migration_4_5,
-                    migration_5_6
+                    migration_5_6,
+                    migration_6_7
                 ).build()
                 INSTANCE = instance
                 return instance
@@ -70,6 +71,13 @@ abstract class TaskDatabase : RoomDatabase() {
         private val migration_5_6 = object : Migration(5, 6) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("DROP TABLE expand_state")
+            }
+        }
+
+        private val migration_6_7 = object : Migration(6, 7) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("DROP TABLE todo_task")
+                database.execSQL("CREATE TABLE todo_task ('id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 'title' TEXT NOT NULL, 'ingredients' TEXT NOT NULL, 'isTrash' INTEGER NOT NULL DEFAULT 0, 'dd' INTEGER NOT NULL DEFAULT 0, 'mm' INTEGER NOT NULL DEFAULT 0, 'yy' INTEGER NOT NULL DEFAULT 0, 'userEmail' TEXT NOT NULL)")
             }
         }
     }

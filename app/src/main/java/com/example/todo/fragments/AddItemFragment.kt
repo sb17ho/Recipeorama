@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.todo.R
 import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentAddItemBinding
 import com.example.todo.priorityClasses.Priority
@@ -54,11 +52,11 @@ class AddItemFragment : Fragment() {
             val calendar = Calendar.getInstance()
             val task: Task = Task(
                 title = title,
-                description = description,
-                priority = Priority.LOW,
+                ingredients = description,
                 dd = calendar[Calendar.DATE],
                 mm = calendar[Calendar.MONTH],
-                yy = calendar[Calendar.YEAR]
+                yy = calendar[Calendar.YEAR],
+                userEmail = "null"
             )
 
             viewModel.addTask(task)

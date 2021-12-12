@@ -4,18 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todo.MainActivity
-import com.example.todo.R
 import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentUpdateBinding
-import com.example.todo.priorityClasses.Priority
 import com.example.todo.viewModel.TodoViewModel
 
 class UpdateFragment : Fragment() {
@@ -33,7 +29,7 @@ class UpdateFragment : Fragment() {
         updateFragment.apply {
 
             taskNameEditText.setText(args.updateCurrentItem.title)
-            taskDescription.setText(args.updateCurrentItem.description)
+            taskDescription.setText(args.updateCurrentItem.ingredients)
 
             doneButton.setOnClickListener {
                 updateDatabaseItem()
@@ -45,14 +41,13 @@ class UpdateFragment : Fragment() {
 
     fun updateDatabaseItem() {
         val title = updateFragment.taskNameEditText.text.toString()
-        val description = updateFragment.taskDescription.text.toString()
+        val ingredients = updateFragment.taskDescription.text.toString()
 
         if (!viewModel.checkIfNotEmpty(title)) {
 
             val task: Task = args.updateCurrentItem
             task.title = title
-            task.description = description
-            task.priority = Priority.LOW
+            task.ingredients = ingredients
             viewModel.updateTask(task)
             findNavController().popBackStack()
             Toast.makeText(requireContext(), "Successfully Updated", Toast.LENGTH_SHORT).show()

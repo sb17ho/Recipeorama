@@ -47,7 +47,7 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
             todoList[position].title.first().uppercase()
         }
         holder.binding.taskDescriptionInfo.text =
-            if (todoList[position].description == "") "" else todoList[position].description
+            if (todoList[position].ingredients == "") "" else todoList[position].ingredients
 
         holder.binding.listCardRow.setOnClickListener {
             holder.binding.root.findNavController()
@@ -86,7 +86,6 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
             holder.binding.taskDescriptionInfo.visibility = View.VISIBLE
             holder.binding.taskDateInfo.visibility = View.VISIBLE
             holder.binding.dropDownArrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
-            task.isExpanded = 1
             viewModel!!.updateTask(task)
         } else {
             TransitionManager.beginDelayedTransition(
@@ -97,7 +96,6 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
             holder.binding.taskDateInfo.visibility = View.GONE
 
             holder.binding.dropDownArrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
-            task.isExpanded = 0
             viewModel!!.updateTask(task)
         }
     }

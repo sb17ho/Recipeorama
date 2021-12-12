@@ -13,6 +13,7 @@ import com.example.todo.priorityClasses.Priority
 import com.example.todo.retrofit.MealsData
 import com.example.todo.retrofit.Recipe
 import com.example.todo.retrofit.RetrofitInstance
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -26,9 +27,9 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     var myMealsDatabase: MutableLiveData<MealsData> = MutableLiveData()
     var myMeals: MutableLiveData<List<Recipe>> = MutableLiveData()
 
-    val allTask = taskDatabase.taskDao().readAllTask(0, 0)
-    val allArchivedTasks = taskDatabase.taskDao().readAllTask(1, 0)
-    val allTrashTasks = taskDatabase.taskDao().readAllTask(0, 1)
+    val allTask = taskDatabase.taskDao().readAllTask(0, getCurrentUserEmail().toString())
+    val allArchivedTasks = taskDatabase.taskDao().readAllTask(0, getCurrentUserEmail().toString())
+    val allTrashTasks = taskDatabase.taskDao().readAllTask(1, getCurrentUserEmail().toString())
 
     fun addTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -107,4 +108,8 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
             myMeals.value = myMealsDatabase.value?.meals
         }
     }
+
+    fun getCurrentUserEmail() = FirebaseAuth.getInstance().currentUser!!.email
+
+    fun getCurrentUserName() = FirebaseAuth.getInstance().currentUser!!.displayName
 }

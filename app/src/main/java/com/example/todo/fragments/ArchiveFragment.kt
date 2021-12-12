@@ -37,7 +37,6 @@ class ArchiveFragment : Fragment() {
 
             recyclerAdapter.setOnItemClickListener(object : ArchiveListAdapter.OnItemClickListener {
                 override fun onItemClickListener(task: Task) {
-                    task.isArchived = 0
                     viewModel.updateTask(task)
                 }
             })
@@ -77,7 +76,6 @@ class ArchiveFragment : Fragment() {
                         val removedTask: Task =
                             recyclerAdapter.archiveList[viewHolder.adapterPosition]
                         removedTask.isTrash = 1
-                        removedTask.isArchived = 0
                         viewModel.updateTask(removedTask)
 
                         Snackbar.make(
@@ -90,7 +88,6 @@ class ArchiveFragment : Fragment() {
                         val removedTask: Task =
                             recyclerAdapter.archiveList[viewHolder.adapterPosition]
                         removedTask.isTrash = 1
-                        removedTask.isArchived = 0
                         viewModel.updateTask(removedTask)
 
                         Snackbar.make(

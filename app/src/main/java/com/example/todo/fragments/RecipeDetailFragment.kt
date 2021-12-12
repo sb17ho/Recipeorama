@@ -116,11 +116,11 @@ class RecipeDetailFragment : Fragment() {
         val calendar = Calendar.getInstance()
         val task: Task = Task(
             title = recipeInfoArgs.recipeInfo.strMeal,
-            description = "",
-            priority = Priority.LOW,
+            ingredients = "",
             dd = calendar[Calendar.DATE],
             mm = calendar[Calendar.MONTH],
-            yy = calendar[Calendar.YEAR]
+            yy = calendar[Calendar.YEAR],
+            userEmail = viewModel.getCurrentUserEmail().toString()
         )
 
         viewModel.addTask(task)
@@ -139,5 +139,4 @@ class RecipeDetailFragment : Fragment() {
         (activity as MainActivity)
             .setActionBarTitle(recipeInfoArgs.recipeInfo.strMeal)
     }
-
 }

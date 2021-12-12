@@ -52,7 +52,6 @@ class TrashFragment : Fragment() {
 //            } else {
 //                imageNoData.visibility = View.GONE
 //            }
-                Log.w("OBsss", list.toString())
                 recyclerAdapter.setDataList(list)
             })
         }
@@ -70,7 +69,7 @@ class TrashFragment : Fragment() {
                 target: RecyclerView.ViewHolder
             ) = false
 
-            // LEFT: DELETE AND RIGHT: ARCHIVE
+            // LEFT: DELETE AND RIGHT: DELETE
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 when (direction) {
                     ItemTouchHelper.LEFT -> {
@@ -91,7 +90,7 @@ class TrashFragment : Fragment() {
 
                         Snackbar.make(
                             requireActivity().findViewById(android.R.id.content),
-                            "${removedTask.title} Archived",
+                            "${removedTask.title} Deleted",
                             Snackbar.LENGTH_LONG
                         ).setAnchorView(requireActivity().findViewById(R.id.bottom_nav_bar)).show()
                     }

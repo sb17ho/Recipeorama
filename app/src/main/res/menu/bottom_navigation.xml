@@ -18,11 +18,11 @@
         android:title="@string/setting_icon"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/archiveFragment"
-        android:icon="@drawable/ic_baseline_archive_24"
-        android:title="@string/archive"
-        app:showAsAction="always" />
+<!--    <item-->
+<!--        android:id="@+id/archiveFragment"-->
+<!--        android:icon="@drawable/ic_baseline_archive_24"-->
+<!--        android:title="@string/archive"-->
+<!--        app:showAsAction="always" />-->
 
     <item
         android:id="@+id/trashFragment"

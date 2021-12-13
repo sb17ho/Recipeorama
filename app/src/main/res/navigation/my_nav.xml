@@ -31,7 +31,7 @@
         <action
             android:id="@+id/action_settingsFragment_to_loginFragment2"
             app:destination="@id/loginFragment2"
-            app:popUpTo="@id/settingsFragment"
+            app:popUpTo="@id/listItems"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

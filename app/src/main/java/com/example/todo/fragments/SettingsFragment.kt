@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.todo.MainActivity
 import com.example.todo.R
 import com.example.todo.databinding.FragmentSettingsBinding
+import com.example.todo.dialog.PleaseWaitDialog
 import com.example.todo.viewModel.TodoViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -47,6 +48,20 @@ class SettingsFragment : Fragment() {
 
             userNameDisplay.text = viewModel.getCurrentUserName()
             userEmailDisplay.text = viewModel.getCurrentUserEmail()
+
+            backupButton.setOnClickListener {
+                viewModel.allTask.observe(viewLifecycleOwner) {
+                    val pleaseWaitDialog = PleaseWaitDialog(requireActivity())
+                    pleaseWaitDialog.showDialog()
+                    viewModel.backupList(it, pleaseWaitDialog)
+                }
+            }
+
+            restoreButton.setOnClickListener {
+                val pleaseWaitDialog = PleaseWaitDialog(requireActivity())
+                pleaseWaitDialog.showDialog()
+                viewModel.restoreList(pleaseWaitDialog)
+            }
         }
 
         return settingsFragmentBind.root

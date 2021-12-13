@@ -1,7 +1,6 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -36,7 +35,7 @@ class TrashFragment : Fragment() {
 
             recyclerAdapter.setOnItemClickListener(object : TrashListAdapter.OnItemClickListener {
                 override fun onItemClickListener(task: Task) {
-                    task.isTrash = 0
+                    task.trashed = 0
                     viewModel.updateTask(task)
                 }
             })

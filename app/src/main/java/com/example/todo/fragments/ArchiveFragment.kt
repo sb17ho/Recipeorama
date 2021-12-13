@@ -1,7 +1,6 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -75,7 +74,7 @@ class ArchiveFragment : Fragment() {
                     ItemTouchHelper.LEFT -> {
                         val removedTask: Task =
                             recyclerAdapter.archiveList[viewHolder.adapterPosition]
-                        removedTask.isTrash = 1
+                        removedTask.trashed = 1
                         viewModel.updateTask(removedTask)
 
                         Snackbar.make(
@@ -87,7 +86,7 @@ class ArchiveFragment : Fragment() {
                     ItemTouchHelper.RIGHT -> {
                         val removedTask: Task =
                             recyclerAdapter.archiveList[viewHolder.adapterPosition]
-                        removedTask.isTrash = 1
+                        removedTask.trashed = 1
                         viewModel.updateTask(removedTask)
 
                         Snackbar.make(

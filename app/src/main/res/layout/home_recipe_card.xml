@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/image_view_home_screen_id"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="100dp"
             android:layout_weight="40"
             android:adjustViewBounds="true"
             android:contentDescription="@string/main_screen_recipe_view"

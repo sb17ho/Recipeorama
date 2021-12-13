@@ -1,27 +1,34 @@
 package com.example.todo.viewModel
 
 import android.app.Application
-import android.widget.AutoCompleteTextView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.todo.R
 import com.example.todo.data.Task
 import com.example.todo.data.TaskDatabase
-import com.example.todo.priorityClasses.Priority
+import com.example.todo.dialog.PleaseWaitDialog
 import com.example.todo.retrofit.MealsData
 import com.example.todo.retrofit.Recipe
 import com.example.todo.retrofit.RetrofitInstance
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import org.jetbrains.anko.doAsync
+import org.json.JSONObject
 
 class TodoViewModel(application: Application) : AndroidViewModel(application) {
 
     private val taskDatabase: TaskDatabase by lazy {
         TaskDatabase.getTaskDatabase(application.applicationContext)
     }
+
+    private val db: FirebaseFirestore = FirebaseFirestore.getInstance();
+    private val USERS_COLLECTION = "Users"
+    private val ITEMS_COLLECTIONS = "Items"
+    private val GROCERY_ITEMS = "Grocery"
 
     //Retrofit
     var myMealsDatabase: MutableLiveData<MealsData> = MutableLiveData()
@@ -41,13 +48,13 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     fun deleteTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
             taskDatabase.taskDao()
-                .deleteTask(task)
+                .deleteTask(task.id, getCurrentUserEmail().toString())
         }
     }
 
     fun deleteAllTask() {
         viewModelScope.launch(Dispatchers.IO) {
-            taskDatabase.taskDao().deleteAllTask()
+            taskDatabase.taskDao().deleteAllTask(getCurrentUserEmail().toString())
         }
     }
 
@@ -61,44 +68,6 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         return title.isEmpty()
     }
 
-    fun parsePriority(priority: String): Priority {
-        return when (priority.lowercase()) {
-            "low" -> Priority.LOW
-            "medium" -> Priority.MEDIUM
-            "high" -> Priority.HIGH
-            else -> Priority.NONE
-        }
-    }
-
-    fun dropDownListener(priority: String, textView: AutoCompleteTextView) {
-        when (priority.lowercase()) {
-            "none" -> textView.setTextColor(
-                ContextCompat.getColor(
-                    getApplication(),
-                    R.color.black
-                )
-            )
-            "low" -> textView.setTextColor(
-                ContextCompat.getColor(
-                    getApplication(),
-                    R.color.green
-                )
-            )
-            "medium" -> textView.setTextColor(
-                ContextCompat.getColor(
-                    getApplication(),
-                    R.color.orange
-                )
-            )
-            "high" -> textView.setTextColor(
-                ContextCompat.getColor(
-                    getApplication(),
-                    R.color.red
-                )
-            )
-        }
-    }
-
     fun getItems(name: String) {
         viewModelScope.launch {
             val items = RetrofitInstance().mealDBAPIServiceCreate.getAllSearchRecipeByName(
@@ -106,6 +75,35 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
             )
             myMealsDatabase.value = items
             myMeals.value = myMealsDatabase.value?.meals
+        }
+    }
+
+    fun backupList(listOfItems: List<Task>, pleaseWaitDialog: PleaseWaitDialog) {
+        doAsync {
+            db.collection(USERS_COLLECTION)
+                .document(getCurrentUserEmail().toString())
+                .collection(ITEMS_COLLECTIONS)
+                .document(GROCERY_ITEMS)
+                .set(hashMapOf(GROCERY_ITEMS to listOfItems))
+
+            pleaseWaitDialog.closeDialog()
+        }
+    }
+
+    fun restoreList(pleaseWaitDialog: PleaseWaitDialog) {
+        doAsync {
+            db.collection(USERS_COLLECTION)
+                .document(getCurrentUserEmail().toString())
+                .collection(ITEMS_COLLECTIONS)
+                .document(GROCERY_ITEMS)
+                .get()
+                .addOnSuccessListener {
+                    val items = it.get(GROCERY_ITEMS) as List<MutableMap<String, Any>>
+                    items.forEach {
+                        addTask(Json.decodeFromString(JSONObject(it as Map<String, Any>).toString()))
+                    }
+                }
+            pleaseWaitDialog.closeDialog()
         }
     }
 

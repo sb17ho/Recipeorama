@@ -11,8 +11,8 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,20 +74,19 @@
                 android:textColor="@color/teal_700"
                 android:textSize="30sp" />
 
-            <TextView
-                android:id="@+id/sync_status"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginStart="5dp"
-                android:text="Sync Status"
-                android:textSize="16sp" />
-
             <Button
-                android:id="@+id/sync_button"
-                android:layout_width="110dp"
+                android:id="@+id/backup_button"
+                android:layout_width="140dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="5dp"
-                android:text="Sync" />
+                android:text="Backup List" />
+
+            <Button
+                android:id="@+id/restore_button"
+                android:layout_width="140dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="5dp"
+                android:text="Restore List" />
 
         </LinearLayout>
 

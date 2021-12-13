@@ -82,7 +82,7 @@ class ListItemsFragment : Fragment() {
     }
 
     private fun updateTask(task: Task, isTrash: Int) {
-        task.isTrash = isTrash
+        task.trashed = isTrash
         viewModel.updateTask(task)
     }
 

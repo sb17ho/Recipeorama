@@ -9,15 +9,15 @@ interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addTask(task: Task)
 
-    @Delete
-    suspend fun deleteTask(task: Task)
+    @Query("DELETE FROM todo_task WHERE id = :id AND userEmail = :userEmail")
+    suspend fun deleteTask(id: Int, userEmail: String)
 
-    @Query("DELETE FROM todo_task")
-    suspend fun deleteAllTask()
+    @Query("DELETE FROM todo_task WHERE userEmail = :userEmail")
+    suspend fun deleteAllTask(userEmail: String)
 
     @Update
     suspend fun updateTask(task: Task)
 
-    @Query("SELECT * FROM todo_task WHERE isTrash = :isTrash AND userEmail = :userEmail")
+    @Query("SELECT * FROM todo_task WHERE trashed = :isTrash AND userEmail = :userEmail")
     fun readAllTask(isTrash: Int, userEmail: String): LiveData<List<Task>>
 }

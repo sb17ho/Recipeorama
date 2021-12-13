@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.todo.databinding.ActivityMainBinding
 
@@ -23,7 +24,9 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         mainBinding.apply {
-            bottomNavBar.setupWithNavController(navController)
+//            bottomNavBar.setupWithNavController(navController)
+
+            NavigationUI.setupWithNavController(bottomNavBar, navController)
 
             navController.addOnDestinationChangedListener { _, destination, _ ->
 

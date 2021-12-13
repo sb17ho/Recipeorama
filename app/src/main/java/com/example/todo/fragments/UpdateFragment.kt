@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todo.MainActivity
+import com.example.todo.R
 import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentUpdateBinding
 import com.example.todo.viewModel.TodoViewModel
@@ -33,7 +34,7 @@ class UpdateFragment : Fragment() {
 
             doneButton.setOnClickListener {
                 updateDatabaseItem()
-                findNavController().popBackStack()
+                findNavController().popBackStack(R.id.listItems, false)
             }
         }
         return updateFragment.root

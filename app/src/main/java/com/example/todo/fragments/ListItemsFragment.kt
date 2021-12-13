@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +19,7 @@ import com.example.todo.databinding.FragmentListItemsBinding
 import com.example.todo.viewModel.TodoViewModel
 import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
+
 
 class ListItemsFragment : Fragment() {
     private lateinit var listItemsBinding: FragmentListItemsBinding

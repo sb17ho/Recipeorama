@@ -9,31 +9,16 @@
         android:id="@+id/listItems"
         android:name="com.example.todo.fragments.ListItemsFragment"
         android:label="fragment_list_items"
-        tools:layout="@layout/fragment_list_items" >
-        <action
-            android:id="@+id/navigate_to_add_Items"
-            app:destination="@id/addItemFragment" />
+        tools:layout="@layout/fragment_list_items">
         <action
             android:id="@+id/action_listItems_to_updateFragment"
             app:destination="@id/updateFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addItemFragment"
-        android:name="com.example.todo.fragments.AddItemFragment"
-        android:label="fragment_add_item"
-        tools:layout="@layout/fragment_add_item" >
-        <action
-            android:id="@+id/navigate_to_ListItems"
-            app:destination="@id/listItems" />
-    </fragment>
-    <fragment
         android:id="@+id/updateFragment"
         android:name="com.example.todo.fragments.UpdateFragment"
         android:label="fragment_update"
-        tools:layout="@layout/fragment_update" >
-        <action
-            android:id="@+id/action_updateFragment_to_listItems"
-            app:destination="@id/listItems" />
+        tools:layout="@layout/fragment_update">
         <argument
             android:name="updateCurrentItem"
             app:argType="com.example.todo.data.Task" />
@@ -42,16 +27,13 @@
         android:id="@+id/settingsFragment"
         android:name="com.example.todo.fragments.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" >
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_loginFragment2"
-            app:destination="@id/loginFragment2" />
+            app:destination="@id/loginFragment2"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
-    <fragment
-        android:id="@+id/archiveFragment"
-        android:name="com.example.todo.fragments.ArchiveFragment"
-        android:label="fragment_archive"
-        tools:layout="@layout/fragment_archive" />
     <fragment
         android:id="@+id/trashFragment"
         android:name="com.example.todo.fragments.TrashFragment"
@@ -61,7 +43,7 @@
         android:id="@+id/recipeListFragment"
         android:name="com.example.todo.fragments.RecipeListFragment"
         android:label="fragment_recipe_list"
-        tools:layout="@layout/fragment_recipe_list" >
+        tools:layout="@layout/fragment_recipe_list">
         <action
             android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
             app:destination="@id/recipeDetailFragment" />
@@ -70,7 +52,7 @@
         android:id="@+id/recipeDetailFragment"
         android:name="com.example.todo.fragments.RecipeDetailFragment"
         android:label="fragment_recipe_detail"
-        tools:layout="@layout/fragment_recipe_detail" >
+        tools:layout="@layout/fragment_recipe_detail">
         <argument
             android:name="recipeInfo"
             app:argType="com.example.todo.retrofit.Recipe" />
@@ -79,9 +61,11 @@
         android:id="@+id/loginFragment2"
         android:name="com.example.todo.fragments.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment2_to_listItems"
-            app:destination="@id/listItems" />
+            app:destination="@id/listItems"
+            app:popUpTo="@id/loginFragment2"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

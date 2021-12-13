@@ -108,7 +108,6 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     val navigateTo = LoginFragmentDirections.actionLoginFragment2ToListItems()
                     findNavController().navigate(navigateTo)
-                    Log.w("TESTING", "SIGN IN SUCCESS")
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("SignInActivity", "signInWithCredential:failure", task.exception)

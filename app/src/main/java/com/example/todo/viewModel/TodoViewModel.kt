@@ -107,7 +107,7 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getCurrentUserEmail() = FirebaseAuth.getInstance().currentUser!!.email
+    fun getCurrentUserEmail() = FirebaseAuth.getInstance().currentUser?.email
 
-    fun getCurrentUserName() = FirebaseAuth.getInstance().currentUser!!.displayName
+    fun getCurrentUserName() = FirebaseAuth.getInstance().currentUser?.displayName
 }

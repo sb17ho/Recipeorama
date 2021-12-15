@@ -1,6 +1,7 @@
 package com.example.todo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -43,5 +44,9 @@ class MainActivity : AppCompatActivity() {
 
     fun setActionBarTitle(title: String?) {
         supportActionBar!!.title = title
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return super.onSupportNavigateUp()
     }
 }

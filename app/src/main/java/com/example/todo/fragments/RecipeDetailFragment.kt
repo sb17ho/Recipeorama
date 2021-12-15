@@ -9,10 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.MainActivity
+import com.example.todo.adapter.IngredientsAdapter
 import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentRecipeDetailBinding
-import com.example.todo.priorityClasses.Priority
 import com.example.todo.viewModel.TodoViewModel
 import com.squareup.picasso.Picasso
 import java.util.*
@@ -24,6 +25,10 @@ class RecipeDetailFragment : Fragment() {
     private val instructions: MutableList<String> = mutableListOf()
     private val viewModel by lazy {
         ViewModelProvider(this)[TodoViewModel::class.java]
+    }
+
+    private val ingredientRecyclerAdapter by lazy {
+        IngredientsAdapter()
     }
 
     override fun onCreateView(
@@ -106,6 +111,11 @@ class RecipeDetailFragment : Fragment() {
             addTitleToRoomId.setOnClickListener {
                 insertMealTitleToDatabase()
             }
+
+            ingredientsRecyclerView.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            ingredientsRecyclerView.adapter = ingredientRecyclerAdapter
+
         }
 
         return recipeDetailFragment.root

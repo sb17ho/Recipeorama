@@ -69,9 +69,9 @@ class LoginFragment : Fragment() {
 
         mAuth = FirebaseAuth.getInstance()
 
-        if (mAuth.currentUser != null) {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToListItems())
-        }
+//        if (mAuth.currentUser != null) {
+//            findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToListItems())
+//        }
 
         loginBind.googleSignInButton.setOnClickListener {
             signIn()

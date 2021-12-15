@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +18,7 @@ import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentListItemsBinding
 import com.example.todo.viewModel.TodoViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 
@@ -33,6 +34,10 @@ class ListItemsFragment : Fragment() {
         listItemsBinding = FragmentListItemsBinding.inflate(inflater, container, false)
 
         setHasOptionsMenu(true) //Called to make menu item
+
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            findNavController().navigate(ListItemsFragmentDirections.actionListItemsToLoginFragment2())
+        }
 
         apply_binding_listeners()
         applySwipeGesture()

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/loginFragment2">
+    app:startDestination="@id/listItems">
 
     <fragment
         android:id="@+id/listItems"
@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_listItems_to_updateFragment"
             app:destination="@id/updateFragment" />
+        <action
+            android:id="@+id/action_listItems_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
@@ -65,7 +68,7 @@
         <action
             android:id="@+id/action_loginFragment2_to_listItems"
             app:destination="@id/listItems"
-            app:popUpTo="@id/loginFragment2"
+            app:popUpTo="@id/listItems"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

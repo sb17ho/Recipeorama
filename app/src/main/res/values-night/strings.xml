@@ -24,6 +24,8 @@
     <string name="login_image_grocery">Login Image Grocery</string>
     <string name="recipeorama_app_name">Recipeorama</string>
     <string name="recipes_and_grocery_list_in_one_place">Recipes and Grocery List in one Place</string>
+    <string name="ingredients_required">Ingredients Required</string>
+    <string name="to_buy">To Buy</string>
 
     <string-array name="priority_drop_down">
         <item>None</item>

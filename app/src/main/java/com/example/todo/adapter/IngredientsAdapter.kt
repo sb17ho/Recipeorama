@@ -7,10 +7,15 @@ import com.example.todo.databinding.IngredientsCardBinding
 
 class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.MyCustomAdapterIngredients>() {
     private var ingredientsList = listOf<String>()
-    private var databaseIngredientList = mutableSetOf<String>()
 
     inner class MyCustomAdapterIngredients(val ingredientsCardBinding: IngredientsCardBinding) :
-        RecyclerView.ViewHolder(ingredientsCardBinding.root)
+        RecyclerView.ViewHolder(ingredientsCardBinding.root) {
+        init {
+            ingredientsCardBinding.ingredientsCardId.setOnClickListener {
+                itemOnClick.onItemClickListener(ingredientsList[adapterPosition])
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCustomAdapterIngredients =
         MyCustomAdapterIngredients(
@@ -24,21 +29,24 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.MyCustomAdapt
     override fun onBindViewHolder(holder: MyCustomAdapterIngredients, position: Int) {
         holder.ingredientsCardBinding.apply {
             ingredientsTextViewId.text = ingredientsList[position]
-
-            ingredientAddId.setOnClickListener {
-                if (databaseIngredientList.contains(ingredientsList[position])) {
-                    //Make Toast
-                } else {
-                    databaseIngredientList.add(ingredientsList[position])
-                }
-            }
         }
     }
 
     override fun getItemCount(): Int = ingredientsList.size
 
-    fun setLists(newIngredientsList: List<String>, databaseList: MutableSet<String>) {
+    fun setList(newIngredientsList: List<String>) {
         this.ingredientsList = newIngredientsList
-        this.databaseIngredientList = databaseList
+        notifyDataSetChanged()
     }
+
+    lateinit var itemOnClick: IngredientsAdapter.OnItemClickListener
+
+    interface OnItemClickListener {
+        fun onItemClickListener(ingredient: String)
+    }
+
+    fun setOnItemClickListener(listenerUI: IngredientsAdapter.OnItemClickListener) {
+        this.itemOnClick = listenerUI
+    }
+
 }

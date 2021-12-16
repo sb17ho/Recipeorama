@@ -1,6 +1,7 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.MainActivity
 import com.example.todo.adapter.IngredientsAdapter
 import com.example.todo.data.Task
@@ -21,8 +21,9 @@ import java.util.*
 class RecipeDetailFragment : Fragment() {
     private lateinit var recipeDetailFragment: FragmentRecipeDetailBinding
     private val recipeInfoArgs by navArgs<RecipeDetailFragmentArgs>()
-    private val ingredientsList: MutableList<String> = mutableListOf()
-    private val instructions: MutableList<String> = mutableListOf()
+    private var ingredientsList: MutableList<String> = mutableListOf()
+    private var instructions: MutableList<String> = mutableListOf()
+    private var requiredIngredientsString: String = ""
     private val viewModel by lazy {
         ViewModelProvider(this)[TodoViewModel::class.java]
     }
@@ -57,8 +58,10 @@ class RecipeDetailFragment : Fragment() {
         ingredientsList.add(recipeInfoArgs.recipeInfo.strIngredient18)
         ingredientsList.add(recipeInfoArgs.recipeInfo.strIngredient19)
         ingredientsList.add(recipeInfoArgs.recipeInfo.strIngredient20)
-        while (ingredientsList.remove("")) {
-        }
+
+        ingredientsList = ingredientsList.filter {
+            it.isNotEmpty()
+        }.toMutableList()
 
         instructions.add(recipeInfoArgs.recipeInfo.strMeasure1)
         instructions.add(recipeInfoArgs.recipeInfo.strMeasure2)
@@ -80,8 +83,18 @@ class RecipeDetailFragment : Fragment() {
         instructions.add(recipeInfoArgs.recipeInfo.strMeasure18)
         instructions.add(recipeInfoArgs.recipeInfo.strMeasure19)
         instructions.add(recipeInfoArgs.recipeInfo.strMeasure20)
-        while (instructions.remove("")) {
+
+        instructions = instructions.filter {
+            it.isNotEmpty()
+        }.toMutableList()
+
+        Log.w("Required Check Before", ingredientsList.toString())
+
+        ingredientsList.forEach {
+            requiredIngredientsString += "$it,"
         }
+
+        Log.w("String Check", requiredIngredientsString)
 
         recipeDetailFragment.apply {
             recipeTitleViewId.text = recipeInfoArgs.recipeInfo.strMeal
@@ -111,22 +124,18 @@ class RecipeDetailFragment : Fragment() {
             addTitleToRoomId.setOnClickListener {
                 insertMealTitleToDatabase()
             }
-
-            ingredientsRecyclerView.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            ingredientsRecyclerView.adapter = ingredientRecyclerAdapter
-
         }
 
         return recipeDetailFragment.root
     }
 
-    fun insertMealTitleToDatabase() {
+    private fun insertMealTitleToDatabase() {
 
         val calendar = Calendar.getInstance()
-        val task: Task = Task(
+        val task = Task(
             title = recipeInfoArgs.recipeInfo.strMeal,
-            ingredients = "",
+            requiredIngredients = requiredIngredientsString,
+            toBuyIngredients = "",
             dd = calendar[Calendar.DATE],
             mm = calendar[Calendar.MONTH],
             yy = calendar[Calendar.YEAR],

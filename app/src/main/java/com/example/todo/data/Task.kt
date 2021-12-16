@@ -14,7 +14,8 @@ data class Task(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
     var title: String,
-    var ingredients: String,
+    var requiredIngredients: String,
+    var toBuyIngredients: String,
     @ColumnInfo(defaultValue = "0") var trashed: Int = 0,
     @ColumnInfo(defaultValue = "0") var dd: Int = 0,
     @ColumnInfo(defaultValue = "0") var mm: Int = 0,
@@ -29,7 +30,8 @@ data class Task(
 
         if (id != other.id) return false
         if (title != other.title) return false
-        if (ingredients != other.ingredients) return false
+        if (requiredIngredients != other.requiredIngredients) return false
+        if (toBuyIngredients != other.toBuyIngredients) return false
         if (trashed != other.trashed) return false
         if (dd != other.dd) return false
         if (mm != other.mm) return false
@@ -42,7 +44,8 @@ data class Task(
     override fun hashCode(): Int {
         var result = id
         result = 31 * result + title.hashCode()
-        result = 31 * result + ingredients.hashCode()
+        result = 31 * result + requiredIngredients.hashCode()
+        result = 31 * result + toBuyIngredients.hashCode()
         result = 31 * result + trashed
         result = 31 * result + dd
         result = 31 * result + mm

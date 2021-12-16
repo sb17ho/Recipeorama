@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Task::class], version = 8, exportSchema = false)
+@Database(entities = [Task::class], version = 9, exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class TaskDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
@@ -35,7 +35,8 @@ abstract class TaskDatabase : RoomDatabase() {
                     migration_4_5,
                     migration_5_6,
                     migration_6_7,
-                    migration_7_8
+                    migration_7_8,
+                    migration_8_9
                 ).build()
                 INSTANCE = instance
                 return instance
@@ -87,7 +88,13 @@ abstract class TaskDatabase : RoomDatabase() {
                 database.execSQL("DROP TABLE todo_task")
                 database.execSQL("CREATE TABLE todo_task ('id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 'title' TEXT NOT NULL, 'ingredients' TEXT NOT NULL, 'trashed' INTEGER NOT NULL DEFAULT 0, 'dd' INTEGER NOT NULL DEFAULT 0, 'mm' INTEGER NOT NULL DEFAULT 0, 'yy' INTEGER NOT NULL DEFAULT 0, 'userEmail' TEXT NOT NULL)")
             }
+        }
 
+        private val migration_8_9 = object : Migration(8, 9) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("DROP TABLE todo_task")
+                database.execSQL("CREATE TABLE todo_task ('id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 'title' TEXT NOT NULL, 'requiredIngredients' TEXT NOT NULL, 'toBuyIngredients' TEXT NOT NULL,'trashed' INTEGER NOT NULL DEFAULT 0, 'dd' INTEGER NOT NULL DEFAULT 0, 'mm' INTEGER NOT NULL DEFAULT 0, 'yy' INTEGER NOT NULL DEFAULT 0, 'userEmail' TEXT NOT NULL)")
+            }
         }
     }
 }

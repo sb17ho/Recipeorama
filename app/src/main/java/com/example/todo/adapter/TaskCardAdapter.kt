@@ -47,7 +47,7 @@ class TaskCardAdapter : RecyclerView.Adapter<TaskCardAdapter.MyTaskCardAdapter>(
             todoList[position].title.first().uppercase()
         }
         holder.binding.taskDescriptionInfo.text =
-            if (todoList[position].ingredients == "") "" else todoList[position].ingredients
+            if (todoList[position].toBuyIngredients == "") "" else todoList[position].toBuyIngredients
 
         holder.binding.listCardRow.setOnClickListener {
             holder.binding.root.findNavController()

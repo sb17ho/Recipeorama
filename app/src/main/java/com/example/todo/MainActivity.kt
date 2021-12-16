@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         mainBinding.apply {
-//            bottomNavBar.setupWithNavController(navController)
 
             NavigationUI.setupWithNavController(bottomNavBar, navController)
 

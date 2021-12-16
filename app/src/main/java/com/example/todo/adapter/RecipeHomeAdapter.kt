@@ -3,6 +3,7 @@ package com.example.todo.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.databinding.HomeRecipeCardBinding
 import com.example.todo.fragments.RecipeListFragmentDirections
@@ -45,7 +46,9 @@ class RecipeHomeAdapter : RecyclerView.Adapter<RecipeHomeAdapter.MyCustomAdapter
     override fun getItemCount(): Int = recipeList.size
 
     fun setRecipeList(newList: List<Recipe>) {
+        val diffutil = RecipeFragmentDiffUtil(recipeList, newList)
+        val diffResult = DiffUtil.calculateDiff(diffutil)
         this.recipeList = newList
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 }

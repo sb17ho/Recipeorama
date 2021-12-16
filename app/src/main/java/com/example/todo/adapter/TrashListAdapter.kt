@@ -41,7 +41,7 @@ class TrashListAdapter : RecyclerView.Adapter<TrashListAdapter.MyTrashListAdapte
         holder.archiveDeleteCardBinding.itemArchiveDeleteDate.text = dateFormat
         holder.archiveDeleteCardBinding.itemNameArchiveDelete.text = trashList[position].title
         holder.archiveDeleteCardBinding.itemArchiveDeleteDescription.text =
-            trashList[position].ingredients
+            trashList[position].toBuyIngredients
         holder.archiveDeleteCardBinding.archiveDeleteImage.setImageResource(R.drawable.ic_baseline_restore_from_trash_24)
     }
 

@@ -1,6 +1,7 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class SettingsFragment : Fragment() {
 
         settingsFragmentBind.apply {
             logoutButton.setOnClickListener {
+                Log.w("FUCK", parentFragmentManager.backStackEntryCount.toString())
 
                 val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestIdToken(getString(R.string.default_web_client_id))

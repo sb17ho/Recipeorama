@@ -40,7 +40,7 @@ class ArchiveListAdapter : RecyclerView.Adapter<ArchiveListAdapter.MyArchiveList
         holder.archiveDeleteBinding.itemArchiveDeleteDate.text = dateFormat
         holder.archiveDeleteBinding.itemNameArchiveDelete.text = archiveList[position].title
         holder.archiveDeleteBinding.itemArchiveDeleteDescription.text =
-            archiveList[position].ingredients
+            archiveList[position].requiredIngredients
         holder.archiveDeleteBinding.archiveDeleteImage.setImageResource(R.drawable.ic_baseline_archive_24)
     }
 

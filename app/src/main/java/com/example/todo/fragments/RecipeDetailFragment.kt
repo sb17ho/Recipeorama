@@ -1,7 +1,6 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,8 +58,6 @@ class RecipeDetailFragment : Fragment() {
         ingredientsList.add(recipeInfoArgs.recipeInfo.strIngredient19)
         ingredientsList.add(recipeInfoArgs.recipeInfo.strIngredient20)
 
-        Log.w("ARRAY CHECK", ingredientsList.toString())
-
         ingredientsList = ingredientsList.filter { item: String? ->
             item != null && item.isNotEmpty()
         }.toMutableList()
@@ -90,13 +87,9 @@ class RecipeDetailFragment : Fragment() {
             item != null && item.isNotEmpty()
         }.toMutableList()
 
-        Log.w("Required Check Before", ingredientsList.toString())
-
         ingredientsList.forEach {
             requiredIngredientsString += "$it,"
         }
-
-        Log.w("String Check", requiredIngredientsString)
 
         recipeDetailFragment.apply {
             recipeTitleViewId.text = recipeInfoArgs.recipeInfo.strMeal

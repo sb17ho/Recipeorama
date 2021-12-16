@@ -106,7 +106,7 @@ class LoginFragment : Fragment() {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    val navigateTo = LoginFragmentDirections.actionLoginFragment2ToListItems()
+                    val navigateTo = LoginFragmentDirections.actionLoginFragment2ToRecipeListFragment2()
                     findNavController().navigate(navigateTo)
                 } else {
                     // If sign in fails, display a message to the user.

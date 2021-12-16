@@ -35,10 +35,6 @@ class ListItemsFragment : Fragment() {
 
         setHasOptionsMenu(true) //Called to make menu item
 
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            findNavController().navigate(ListItemsFragmentDirections.actionListItemsToLoginFragment2())
-        }
-
         apply_binding_listeners()
         applySwipeGesture()
 

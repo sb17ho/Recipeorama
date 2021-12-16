@@ -5,12 +5,14 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.MainActivity
 import com.example.todo.R
 import com.example.todo.adapter.RecipeHomeAdapter
 import com.example.todo.databinding.FragmentRecipeListBinding
 import com.example.todo.viewModel.TodoViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 
 class RecipeListFragment : Fragment() {
@@ -30,6 +32,11 @@ class RecipeListFragment : Fragment() {
             FragmentRecipeListBinding.inflate(layoutInflater, container, false)
 
         setHasOptionsMenu(true) //Called to make menu item
+
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            findNavController().navigate(RecipeListFragmentDirections.actionRecipeListFragmentToLoginFragment22())
+        }
+
         fragmentRecipeListBinder.apply {
             recipeListRecycler.layoutManager = LinearLayoutManager(requireContext())
             recipeListRecycler.adapter = recipeAdapter

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/listItems">
+    app:startDestination="@id/recipeListFragment">
 
     <fragment
         android:id="@+id/listItems"
@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_listItems_to_updateFragment"
             app:destination="@id/updateFragment" />
-        <action
-            android:id="@+id/action_listItems_to_loginFragment2"
-            app:destination="@id/loginFragment2" />
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
@@ -34,7 +31,8 @@
         <action
             android:id="@+id/action_settingsFragment_to_loginFragment2"
             app:destination="@id/loginFragment2"
-            app:popUpTo="@id/listItems"
+            app:popUpTo="@id/recipeListFragment"
+            app:launchSingleTop="true"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -50,6 +48,10 @@
         <action
             android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
             app:destination="@id/recipeDetailFragment" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_loginFragment22"
+            app:destination="@id/loginFragment2"
+            app:launchSingleTop="true"/>
     </fragment>
     <fragment
         android:id="@+id/recipeDetailFragment"
@@ -66,9 +68,10 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment2_to_listItems"
-            app:destination="@id/listItems"
-            app:popUpTo="@id/listItems"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_loginFragment2_to_recipeListFragment2"
+            app:destination="@id/recipeListFragment"
+            app:popUpTo="@id/recipeListFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

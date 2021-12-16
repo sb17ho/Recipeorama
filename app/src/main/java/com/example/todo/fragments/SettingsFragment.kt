@@ -31,7 +31,6 @@ class SettingsFragment : Fragment() {
 
         settingsFragmentBind.apply {
             logoutButton.setOnClickListener {
-                Log.w("FUCK", parentFragmentManager.backStackEntryCount.toString())
 
                 val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestIdToken(getString(R.string.default_web_client_id))
@@ -45,7 +44,6 @@ class SettingsFragment : Fragment() {
                     val action = SettingsFragmentDirections.actionSettingsFragmentToLoginFragment2()
                     findNavController().navigate(action)
                 }
-
             }
 
             userNameDisplay.text = viewModel.getCurrentUserName()

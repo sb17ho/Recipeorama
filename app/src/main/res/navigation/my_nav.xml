@@ -33,7 +33,7 @@
             app:destination="@id/loginFragment2"
             app:popUpTo="@id/recipeListFragment"
             app:launchSingleTop="true"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/trashFragment"

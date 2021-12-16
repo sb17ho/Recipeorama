@@ -1,6 +1,7 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -32,10 +33,10 @@ class RecipeListFragment : Fragment() {
             FragmentRecipeListBinding.inflate(layoutInflater, container, false)
 
         setHasOptionsMenu(true) //Called to make menu item
-
         if (FirebaseAuth.getInstance().currentUser == null) {
             findNavController().navigate(RecipeListFragmentDirections.actionRecipeListFragmentToLoginFragment22())
         }
+
 
         fragmentRecipeListBinder.apply {
             recipeListRecycler.layoutManager = LinearLayoutManager(requireContext())
@@ -43,7 +44,10 @@ class RecipeListFragment : Fragment() {
 
             viewModel.getItems("chicken")
             viewModel.myMealsDatabase.observe(viewLifecycleOwner) {
-                recipeAdapter.setRecipeList(it.meals)
+                if (it?.meals != null)
+                    recipeAdapter.setRecipeList(it.meals)
+                else
+                    recipeAdapter.setRecipeList(emptyList())
             }
 
         }
@@ -78,8 +82,15 @@ class RecipeListFragment : Fragment() {
 
     private fun searchItem(name: String) {
         viewModel.getItems(name)
-        viewModel.myMealsDatabase.observe(viewLifecycleOwner) {
-            recipeAdapter.setRecipeList(it.meals)
+        try {
+            viewModel.myMealsDatabase.observe(viewLifecycleOwner) {
+                if (it?.meals != null)
+                    recipeAdapter.setRecipeList(it.meals)
+                else
+                    recipeAdapter.setRecipeList(emptyList())
+            }
+        } catch (e: Exception) {
+            Log.wtf("Stack", e.message.toString())
         }
     }
 

@@ -90,5 +90,7 @@ dependencies {
     //Anko's doAsync
     implementation 'org.jetbrains.anko:anko-common:0.9'
 
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
 }

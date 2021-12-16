@@ -59,8 +59,10 @@ class RecipeDetailFragment : Fragment() {
         ingredientsList.add(recipeInfoArgs.recipeInfo.strIngredient19)
         ingredientsList.add(recipeInfoArgs.recipeInfo.strIngredient20)
 
-        ingredientsList = ingredientsList.filter {
-            it.isNotEmpty()
+        Log.w("ARRAY CHECK", ingredientsList.toString())
+
+        ingredientsList = ingredientsList.filter { item: String? ->
+            item != null && item.isNotEmpty()
         }.toMutableList()
 
         instructions.add(recipeInfoArgs.recipeInfo.strMeasure1)
@@ -84,8 +86,8 @@ class RecipeDetailFragment : Fragment() {
         instructions.add(recipeInfoArgs.recipeInfo.strMeasure19)
         instructions.add(recipeInfoArgs.recipeInfo.strMeasure20)
 
-        instructions = instructions.filter {
-            it.isNotEmpty()
+        instructions = instructions.filter { item: String? ->
+            item != null && item.isNotEmpty()
         }.toMutableList()
 
         Log.w("Required Check Before", ingredientsList.toString())

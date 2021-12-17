@@ -1,6 +1,8 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
+import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,7 @@ import com.example.todo.databinding.FragmentRecipeDetailBinding
 import com.example.todo.viewModel.TodoViewModel
 import com.squareup.picasso.Picasso
 import java.util.*
+
 
 class RecipeDetailFragment : Fragment() {
     private lateinit var recipeDetailFragment: FragmentRecipeDetailBinding
@@ -98,8 +101,25 @@ class RecipeDetailFragment : Fragment() {
             categoryId.text = recipeInfoArgs.recipeInfo.strCategory
             areaId.text = recipeInfoArgs.recipeInfo.strArea
 
-            sourceId.text = recipeInfoArgs.recipeInfo.strSource
-            youtubeId.text = recipeInfoArgs.recipeInfo.strYoutube
+            var dynamicUrl = recipeInfoArgs.recipeInfo.strSource
+
+            var linkedText =
+                String.format(
+                    "<a href=\"%s\">${recipeInfoArgs.recipeInfo.strSource}</a>",
+                    dynamicUrl
+                )
+
+            sourceId.text = Html.fromHtml(linkedText)
+            sourceId.movementMethod = LinkMovementMethod.getInstance()
+
+            dynamicUrl = recipeInfoArgs.recipeInfo.strYoutube
+            linkedText = String.format(
+                "<a href=\"%s\">${recipeInfoArgs.recipeInfo.strYoutube}</a>",
+                dynamicUrl
+            )
+
+            youtubeId.text = Html.fromHtml(linkedText)
+            youtubeId.movementMethod = LinkMovementMethod.getInstance()
 
             var ingredientsStr: String = ""
             ingredientsList.forEach {
@@ -114,7 +134,7 @@ class RecipeDetailFragment : Fragment() {
                 for (i in 0 until ingredientsList.size) {
                     measurement += "${instructions[i]} ${ingredientsList[i]} , "
                 }
-            }else if (instructions.size < ingredientsList.size){
+            } else if (instructions.size < ingredientsList.size) {
                 for (i in 0 until instructions.size) {
                     measurement += "${instructions[i]} ${ingredientsList[i]} , "
                 }

@@ -21,3 +21,5 @@ UI Screens Design Explanation
 * Screen 7: The Recipe removed by the user will be moved to **Trash** where the user has the option to either restore it or permanently delete it
 * Screen 8: It a simple screen for the user to either logout or sync their data with the firebase database <br>
 ![alt-text-1](./AppScreens/LoginScreen.jpeg) ![alt-text-2](./AppScreens/RecipeList.jpeg) ![alt-text-3](./AppScreens/SearchRecipe.jpeg) ![alt-text-4](./AppScreens/RecipeDetail.jpeg) ![alt-text-5](./AppScreens/GroceryList.jpeg) ![alt-text-6](./AppScreens/ToShopList.jpeg) ![alt-text-7](./AppScreens/TrashList.jpeg) ![alt-text-8](./AppScreens/Settings.jpeg)
+# DEMO
+![](./AppScreens/AppDemo.gif)

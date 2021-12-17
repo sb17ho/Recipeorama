@@ -18,7 +18,11 @@ import com.example.todo.viewModel.TodoViewModel
 import com.squareup.picasso.Picasso
 import java.util.*
 
-
+/*
+* The purpose of this class is to provide the user with the details,
+* of the recipe clicked by the user. It handles the dynamic link URL,
+*  for user to access either the article for making the recipe or a youtube video
+* */
 class RecipeDetailFragment : Fragment() {
     private lateinit var recipeDetailFragment: FragmentRecipeDetailBinding
     private val recipeInfoArgs by navArgs<RecipeDetailFragmentArgs>()
@@ -146,7 +150,9 @@ class RecipeDetailFragment : Fragment() {
         return recipeDetailFragment.root
     }
 
-    //Insert the meal information to the database
+    /*
+    * Insert the meal information to the database
+    * */
     private fun insertMealTitleToDatabase() {
 
         val calendar = Calendar.getInstance()

@@ -17,6 +17,11 @@ import com.example.todo.viewModel.TodoViewModel
 import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
+/*This fragment handles the trash list which results from user
+* delete any recipe from Recipe list fragment. The user can
+* either permanently delete teh recipe or restore it back to
+* Recipe List Fragment
+* */
 class TrashFragment : Fragment() {
     private val viewModel: TodoViewModel by lazy { ViewModelProvider(this)[TodoViewModel::class.java] }
     private lateinit var trashBind: FragmentTrashBinding
@@ -46,11 +51,6 @@ class TrashFragment : Fragment() {
             }
 
             viewModel.allTrashTasks.observe(viewLifecycleOwner, Observer { list ->
-//            if (list.isEmpty()) {
-//                imageNoData.visibility = View.VISIBLE
-//            } else {
-//                imageNoData.visibility = View.GONE
-//            }
                 recyclerAdapter.setDataList(list)
             })
         }
@@ -98,6 +98,9 @@ class TrashFragment : Fragment() {
         }).attachToRecyclerView(trashBind.recyclerViewTrash)
     }
 
+    /*
+    * To Create the Delete All option for deleting all the trash items at once
+    * */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.delete_all_nav, menu)
     }

@@ -18,6 +18,12 @@ import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentUpdateBinding
 import com.example.todo.viewModel.TodoViewModel
 
+/*This fragment handles, the required items list and to buy items list,
+* it provides users with a list of required ingredients and user can
+* select from the required ingredients(to buy).
+* It handles updating the Room Database when user makes any changes to the
+* required and tobuy list
+* */
 class UpdateFragment : Fragment() {
     private lateinit var updateFragment: FragmentUpdateBinding
     private val viewModel: TodoViewModel by lazy { ViewModelProvider(this)[TodoViewModel::class.java] }
@@ -116,6 +122,10 @@ class UpdateFragment : Fragment() {
         return updateFragment.root
     }
 
+    /*
+    * Updating the Room Database with updated information
+    * as provided by the user
+    * */
     fun updateDatabaseItem() {
         val title = args.updateCurrentItem.title
         var toBuyString = ""

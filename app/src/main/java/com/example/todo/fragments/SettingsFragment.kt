@@ -1,7 +1,6 @@
 package com.example.todo.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
+/*
+* This is a basic Fragment that handles user log-out and
+* handles calls to firebase database for backing up and restoring data
+* from firebase
+* */
 class SettingsFragment : Fragment() {
     private lateinit var settingsFragmentBind: FragmentSettingsBinding
     private val viewModel by lazy {

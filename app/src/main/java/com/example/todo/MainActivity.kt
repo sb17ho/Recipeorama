@@ -1,15 +1,19 @@
 package com.example.todo
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.example.todo.databinding.ActivityMainBinding
 
+/* @author Simar Bhamra (6364665)
+ * @author Fahad Ansar
+ * */
+
+/*This is the main activity which only apply functionality for
+* Navigation Components (NavHostFragment) and Bottom Navigation*/
 class MainActivity : AppCompatActivity() {
     private lateinit var mainBinding: ActivityMainBinding
     private val navController by lazy {

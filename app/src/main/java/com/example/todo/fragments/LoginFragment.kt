@@ -1,13 +1,11 @@
 package com.example.todo.fragments
 
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.todo.R
@@ -19,6 +17,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
+/*
+* This activity handles the functionality of logging in the user
+* using the Google Sign-in option via Firebase
+* */
 class LoginFragment : Fragment() {
     companion object {
         private const val RC_SIGN_IN = 100
@@ -71,13 +73,17 @@ class LoginFragment : Fragment() {
         }
     }
 
-
+    /*
+      * Checks if the user authentication was successful, if yes then
+      * navigate to the List Fragment
+      * */
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    val navigateTo = LoginFragmentDirections.actionLoginFragment2ToRecipeListFragment2()
+                    val navigateTo =
+                        LoginFragmentDirections.actionLoginFragment2ToRecipeListFragment2()
                     findNavController().navigate(navigateTo)
                 } else {
                     // If sign in fails, display a message to the user.

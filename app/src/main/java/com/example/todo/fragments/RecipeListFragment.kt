@@ -15,7 +15,11 @@ import com.example.todo.databinding.FragmentRecipeListBinding
 import com.example.todo.viewModel.TodoViewModel
 import com.google.firebase.auth.FirebaseAuth
 
-
+/*
+* This fragment displays the user a list of recipes to make,
+* the user can search recipes using the search bar and access the
+* details of the recipe
+* */
 class RecipeListFragment : Fragment() {
     private lateinit var fragmentRecipeListBinder: FragmentRecipeListBinding
     private val viewModel by lazy {
@@ -55,6 +59,9 @@ class RecipeListFragment : Fragment() {
         return fragmentRecipeListBinder.root
     }
 
+    /*
+    * For creating the search bar for user to search a recipe
+    * */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
@@ -80,6 +87,9 @@ class RecipeListFragment : Fragment() {
         })
     }
 
+    /*
+    * To Search the input item by the user
+    * */
     private fun searchItem(name: String) {
         viewModel.getItems(name)
         try {

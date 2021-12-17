@@ -19,7 +19,11 @@ import com.example.todo.viewModel.TodoViewModel
 import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
-
+/*
+* This is the List Fragment class, it provides functionality of
+* viewing the recipe the user has added. It provides the user with
+* the functionality to select the recipe to add ingredients for buying
+* */
 class ListItemsFragment : Fragment() {
     private lateinit var listItemsBinding: FragmentListItemsBinding
     private val viewModel: TodoViewModel by lazy { ViewModelProvider(this)[TodoViewModel::class.java] }
@@ -109,6 +113,6 @@ class ListItemsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as MainActivity)
-            .setActionBarTitle("Grocery List")
+            .setActionBarTitle("Recipe List")
     }
 }

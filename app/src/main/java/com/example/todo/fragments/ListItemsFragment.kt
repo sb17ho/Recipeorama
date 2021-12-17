@@ -63,9 +63,7 @@ class ListItemsFragment : Fragment() {
                             requireActivity().findViewById(android.R.id.content),
                             "${removedTask.title} Deleted",
                             Snackbar.LENGTH_LONG
-                        ).setAction("Undo") {
-                            updateTask(removedTask, 0)
-                        }.setAnchorView(requireActivity().findViewById(R.id.bottom_nav_bar)).show()
+                        ).setAnchorView(requireActivity().findViewById(R.id.bottom_nav_bar)).show()
                     }
                     ItemTouchHelper.RIGHT -> {
                         val archiveTask: Task = recyclerAdapter.todoList[viewHolder.adapterPosition]
@@ -75,9 +73,7 @@ class ListItemsFragment : Fragment() {
                             requireActivity().findViewById(android.R.id.content),
                             "${archiveTask.title} Deleted",
                             Snackbar.LENGTH_LONG
-                        ).setAction("Undo") {
-                            updateTask(archiveTask, 0)
-                        }.setAnchorView(requireActivity().findViewById(R.id.bottom_nav_bar)).show()
+                        ).setAnchorView(requireActivity().findViewById(R.id.bottom_nav_bar)).show()
                     }
                 }
             }

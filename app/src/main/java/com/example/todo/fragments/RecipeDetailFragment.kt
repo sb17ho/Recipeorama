@@ -110,8 +110,14 @@ class RecipeDetailFragment : Fragment() {
 
             var measurement: String = ""
 
-            for (i in 0 until instructions.size) {
-                measurement += "${instructions[i]} ${ingredientsList[i]} , "
+            if (instructions.size >= ingredientsList.size) {
+                for (i in 0 until ingredientsList.size) {
+                    measurement += "${instructions[i]} ${ingredientsList[i]} , "
+                }
+            }else if (instructions.size < ingredientsList.size){
+                for (i in 0 until instructions.size) {
+                    measurement += "${instructions[i]} ${ingredientsList[i]} , "
+                }
             }
 
             measurementsId.text = measurement

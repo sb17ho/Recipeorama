@@ -13,6 +13,9 @@ class RetrofitInstance {
             .build()
     }
 
+    /*
+    * Creates a retrofit instance for fetching API data from MealsDB API
+    * */
     val mealDBAPIServiceCreate by lazy {
         retrofit.create(MealDBAPIService::class.java)
     }

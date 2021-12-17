@@ -19,6 +19,12 @@ import kotlinx.serialization.json.Json
 import org.jetbrains.anko.doAsync
 import org.json.JSONObject
 
+/*
+* The purpose of this view model to handle every backend calls separating
+* the calls from the UI framework for easy backend navigation and readability
+* It handles most calls to Firebase, Room Database, Retrofit Calls and making use of
+* Kotlin view model scope and LiveData to efficient backend processing
+* */
 class TodoViewModel(application: Application) : AndroidViewModel(application) {
 
     private val taskDatabase: TaskDatabase by lazy {
@@ -37,6 +43,9 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     val allTask = taskDatabase.taskDao().readAllTask(0, getCurrentUserEmail().toString())
     val allTrashTasks = taskDatabase.taskDao().readAllTask(1, getCurrentUserEmail().toString())
 
+    /*
+    * Add the recipe to the Room Database
+    * */
     fun addTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
             taskDatabase.taskDao()
@@ -44,6 +53,9 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /*
+    * Delete the Recipe Item as requested by the user
+    * */
     fun deleteTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
             taskDatabase.taskDao()
@@ -51,12 +63,18 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /*
+    * To Delete all the Trash Items
+    * */
     fun deleteAllTask() {
         viewModelScope.launch(Dispatchers.IO) {
             taskDatabase.taskDao().deleteAllTask(getCurrentUserEmail().toString())
         }
     }
 
+    /*
+    * To update the Recipe based on user information
+    * */
     fun updateTask(task: Task) {
         viewModelScope.launch {
             taskDatabase.taskDao().updateTask(task)
@@ -67,6 +85,9 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         return title.isEmpty()
     }
 
+    /*
+    * To fetch recipe items from mealsDB using Retrofit API
+    * */
     fun getItems(name: String) {
         viewModelScope.launch {
             val items = RetrofitInstance().mealDBAPIServiceCreate.getAllSearchRecipeByName(
@@ -77,6 +98,9 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /*
+    * Backing up the data to Firebase from Room Database
+    * */
     fun backupList(listOfItems: List<Task>, pleaseWaitDialog: PleaseWaitDialog) {
         doAsync {
             db.collection(USERS_COLLECTION)
@@ -89,6 +113,9 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /*
+    * Restoring data from firebase into Room Database
+    * */
     fun restoreList(pleaseWaitDialog: PleaseWaitDialog) {
         doAsync {
             db.collection(USERS_COLLECTION)

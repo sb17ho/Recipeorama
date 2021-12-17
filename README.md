@@ -19,4 +19,5 @@ UI Screens Design Explanation
 * Screen 5: It is a list of Recipe that the user desire to make and within contains the shop list for the missing ingredients
 * Screen 6: It consists of all the required ingredients of the recipe and provides user with the functionality to add the missing ingredients to **To Buy** list
 * Screen 7: The Recipe removed by the user will be moved to **Trash** where the user has the option to either restore it or permanently delete it
-* Screen 8: It a simple screen for the user to either logout or sync their data with the firebase database
+* Screen 8: It a simple screen for the user to either logout or sync their data with the firebase database <br>
+![alt-text-1](./AppScreens/LoginScreen.jpeg) ![alt-text-2](./AppScreens/RecipeList.jpeg) ![alt-text-3](./AppScreens/SearchRecipe.jpeg) ![alt-text-4](./AppScreens/RecipeDetail.jpeg) ![alt-text-5](./AppScreens/GroceryList.jpeg) ![alt-text-6](./AppScreens/ToShopList.jpeg) ![alt-text-7](./AppScreens/TrashList.jpeg) ![alt-text-8](./AppScreens/Settings.jpeg)

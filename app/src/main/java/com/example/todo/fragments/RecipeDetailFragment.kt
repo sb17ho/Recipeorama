@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todo.MainActivity
-import com.example.todo.adapter.IngredientsAdapter
 import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentRecipeDetailBinding
 import com.example.todo.viewModel.TodoViewModel
@@ -28,10 +27,6 @@ class RecipeDetailFragment : Fragment() {
     private var requiredIngredientsString: String = ""
     private val viewModel by lazy {
         ViewModelProvider(this)[TodoViewModel::class.java]
-    }
-
-    private val ingredientRecyclerAdapter by lazy {
-        IngredientsAdapter()
     }
 
     override fun onCreateView(
@@ -101,6 +96,7 @@ class RecipeDetailFragment : Fragment() {
             categoryId.text = recipeInfoArgs.recipeInfo.strCategory
             areaId.text = recipeInfoArgs.recipeInfo.strArea
 
+            //To create dynamic link for the user to click and open resources
             var dynamicUrl = recipeInfoArgs.recipeInfo.strSource
 
             var linkedText =
@@ -150,6 +146,7 @@ class RecipeDetailFragment : Fragment() {
         return recipeDetailFragment.root
     }
 
+    //Insert the meal information to the database
     private fun insertMealTitleToDatabase() {
 
         val calendar = Calendar.getInstance()

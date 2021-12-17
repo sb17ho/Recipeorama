@@ -29,31 +29,6 @@ class LoginFragment : Fragment() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var mAuth: FirebaseAuth
 
-//    private val registerForResult =
-//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-//            // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-//            if (it.resultCode == RESULT_OK) {
-//                val task =
-//                    GoogleSignIn.getSignedInAccountFromIntent(
-//                        it.data
-//                    )
-//                val exception: Exception? = task.exception
-//                if (task.isSuccessful) {
-//                    try {
-//                        // Google Sign In was successful, authenticate with Firebase
-//                        val account = task.getResult(ApiException::class.java)!!
-//                        firebaseAuthWithGoogle(account.idToken!!)
-//                    } catch (e: ApiException) {
-//                        // Google Sign In failed, update UI appropriately
-//                        Log.w("SignInActivity", "Google sign in failed", e)
-//                    }
-//                } else {
-//                    Log.w("SignInActivity", exception.toString())
-//                }
-//            }
-//        }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,10 +43,6 @@ class LoginFragment : Fragment() {
         googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
         mAuth = FirebaseAuth.getInstance()
-
-//        if (mAuth.currentUser != null) {
-//            findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToListItems())
-//        }
 
         loginBind.googleSignInButton.setOnClickListener {
             signIn()

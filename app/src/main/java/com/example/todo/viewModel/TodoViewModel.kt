@@ -35,7 +35,6 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     var myMeals: MutableLiveData<List<Recipe>> = MutableLiveData()
 
     val allTask = taskDatabase.taskDao().readAllTask(0, getCurrentUserEmail().toString())
-    val allArchivedTasks = taskDatabase.taskDao().readAllTask(0, getCurrentUserEmail().toString())
     val allTrashTasks = taskDatabase.taskDao().readAllTask(1, getCurrentUserEmail().toString())
 
     fun addTask(task: Task) {

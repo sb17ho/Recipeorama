@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +17,6 @@ import com.example.todo.data.Task
 import com.example.todo.databinding.FragmentListItemsBinding
 import com.example.todo.viewModel.TodoViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 
@@ -52,7 +50,7 @@ class ListItemsFragment : Fragment() {
                 target: RecyclerView.ViewHolder
             ) = false
 
-            // LEFT: DELETE AND RIGHT: ARCHIVE (NOW DELETE)
+            // LEFT: DELETE AND RIGHT: DELETE
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 when (direction) {
                     ItemTouchHelper.LEFT -> {
@@ -85,6 +83,7 @@ class ListItemsFragment : Fragment() {
         viewModel.updateTask(task)
     }
 
+    //Applying listeners
     private fun apply_binding_listeners() {
 
         listItemsBinding.apply {

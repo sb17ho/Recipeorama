@@ -1,6 +1,6 @@
 # Recipeorama
 **App Name:** Recipeorama <br>
-**Authors:** Simar Bhamra & Fahad Ansar <br>
+**Authors:** Simar Bhamra <br>
 **Platform:** Android <br>
 **Programming Language:** Kotlin <br>
 **Tools Used:** Room Database, Retrofit API, Firebase, MealsDB API, Navigation Components, MVVM Architecture, LiveData, Kotlin Corroutines <br>
